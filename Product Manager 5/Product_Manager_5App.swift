@@ -1,10 +1,3 @@
-//
-//  Product_Manager_5App.swift
-//  Product Manager 5
-//
-//  Created by Anthony Howell on 3/4/24.
-//
-
 import SwiftUI
 import SwiftData
 
@@ -12,7 +5,7 @@ import SwiftData
 struct Product_Manager_5App: App {
     var sharedModelContainer: ModelContainer = {
         let schema = Schema([
-            Item.self,
+            Initiative.self,
         ])
         let modelConfiguration = ModelConfiguration(schema: schema, isStoredInMemoryOnly: false)
 
