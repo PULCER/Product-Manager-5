@@ -6,6 +6,7 @@ struct Product_Manager_5App: App {
     var sharedModelContainer: ModelContainer = {
         let schema = Schema([
             Initiative.self,
+            Note.self,
         ])
         let modelConfiguration = ModelConfiguration(schema: schema, isStoredInMemoryOnly: false)
 
