@@ -4,7 +4,7 @@ import SwiftData
 struct ContentView: View {
     @Environment(\.modelContext) private var modelContext
     @Query private var initiatives: [Initiative]
-    
+
     @State private var title: String = ""
     @State private var summary: String = ""
     @State private var priority: Priority = .low
@@ -12,6 +12,10 @@ struct ContentView: View {
     @State private var selectedInitiative: Initiative? = nil
     
     var body: some View {
+        let lowPriorityInitiatives = initiatives.filter { $0.priority == .low && !$0.isCompleted }
+               let mediumPriorityInitiatives = initiatives.filter { $0.priority == .medium && !$0.isCompleted }
+               let highPriorityInitiatives = initiatives.filter { $0.priority == .high && !$0.isCompleted }
+               let highestPriorityInitiatives = initiatives.filter { $0.priority == .highest && !$0.isCompleted }
         VStack {
             if let selectedInitiative = selectedInitiative {
                 InitiativeDetailView(initiative: selectedInitiative)
@@ -19,9 +23,9 @@ struct ContentView: View {
                         self.selectedInitiative = nil
                     }
             } else {
-                List {
+ 
                     
-                    Section(header: Text("Existing Initiatives")) {
+                    VStack {
                         ForEach(initiatives) { initiative in
                             Button(action: {
                                 self.selectedInitiative = initiative
@@ -42,7 +46,9 @@ struct ContentView: View {
                         }
                     }
                     
-                    Section(header: Text("Add New Initiative")) {
+                    Spacer()
+                    
+                    VStack {
                         TextField("Title", text: $title)
                         TextField("Summary", text: $summary)
                         Picker("Priority", selection: $priority) {
@@ -50,15 +56,15 @@ struct ContentView: View {
                             Text("Medium").tag(Priority.medium)
                             Text("High").tag(Priority.high)
                             Text("Highest").tag(Priority.highest)
-                        }
+                        }.pickerStyle(SegmentedPickerStyle())
                         Button("Add Initiative") {
                             addInitiative()
                         }
-                    }
+                    }.padding()
                 }
             }
         }
-    }
+    
     
     private func addInitiative() {
         let newInitiative = Initiative(title: title)
