@@ -23,28 +23,96 @@ struct ContentView: View {
                         self.selectedInitiative = nil
                     }
             } else {
- 
-                    
-                    VStack {
-                        ForEach(initiatives) { initiative in
-                            Button(action: {
-                                self.selectedInitiative = initiative
-                            }) {
-                                VStack(alignment: .leading) {
-                                    Text(initiative.title).font(.headline)
-                                    Text(initiative.summary).font(.subheadline)
-                                    Text("Priority: \(initiative.priority.rawValue)").font(.subheadline)
-                                    if !initiative.notes.isEmpty {
-                                        Text("Notes:").font(.headline)
-                                        ForEach(initiative.notes) { note in
-                                            Text(note.content).font(.subheadline)
-                                            Text("Timestamp: \(note.timestamp, formatter: itemFormatter)").font(.footnote)
-                                        }
+                VStack{
+                    ForEach(highestPriorityInitiatives) { initiative in
+                        Button(action: {
+                            self.selectedInitiative = initiative
+                        }) {
+                            VStack(alignment: .leading) {
+                                Text(initiative.title).font(.headline)
+                                Text(initiative.summary).font(.subheadline)
+                                Text("Priority: \(initiative.priority.rawValue)").font(.subheadline)
+                                if !initiative.notes.isEmpty {
+                                    Text("Notes:").font(.headline)
+                                    ForEach(initiative.notes) { note in
+                                        Text(note.content).font(.subheadline)
+                                        Text("Timestamp: \(note.timestamp, formatter: itemFormatter)").font(.footnote)
                                     }
                                 }
                             }
                         }
+                    }.padding()
+                    Divider().padding()
+                    
+                    GeometryReader { geometry in
+                    
+                        HStack{
+                            
+                            VStack {
+                                ForEach(lowPriorityInitiatives) { initiative in
+                                    Button(action: {
+                                        self.selectedInitiative = initiative
+                                    }) {
+                                        VStack(alignment: .leading) {
+                                            Text(initiative.title).font(.headline)
+                                            Text(initiative.summary).font(.subheadline)
+                                            Text("Priority: \(initiative.priority.rawValue)").font(.subheadline)
+                                            if !initiative.notes.isEmpty {
+                                                Text("Notes:").font(.headline)
+                                                ForEach(initiative.notes) { note in
+                                                    Text(note.content).font(.subheadline)
+                                                    Text("Timestamp: \(note.timestamp, formatter: itemFormatter)").font(.footnote)
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }.frame(width: geometry.size.width / 3)
+                            Divider()
+                            VStack {
+                                ForEach(mediumPriorityInitiatives) { initiative in
+                                    Button(action: {
+                                        self.selectedInitiative = initiative
+                                    }) {
+                                        VStack(alignment: .leading) {
+                                            Text(initiative.title).font(.headline)
+                                            Text(initiative.summary).font(.subheadline)
+                                            Text("Priority: \(initiative.priority.rawValue)").font(.subheadline)
+                                            if !initiative.notes.isEmpty {
+                                                Text("Notes:").font(.headline)
+                                                ForEach(initiative.notes) { note in
+                                                    Text(note.content).font(.subheadline)
+                                                    Text("Timestamp: \(note.timestamp, formatter: itemFormatter)").font(.footnote)
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }.frame(width: geometry.size.width / 3)
+                            Divider()
+                            VStack {
+                                ForEach(highPriorityInitiatives) { initiative in
+                                    Button(action: {
+                                        self.selectedInitiative = initiative
+                                    }) {
+                                        VStack(alignment: .leading) {
+                                            Text(initiative.title).font(.headline)
+                                            Text(initiative.summary).font(.subheadline)
+                                            Text("Priority: \(initiative.priority.rawValue)").font(.subheadline)
+                                            if !initiative.notes.isEmpty {
+                                                Text("Notes:").font(.headline)
+                                                ForEach(initiative.notes) { note in
+                                                    Text(note.content).font(.subheadline)
+                                                    Text("Timestamp: \(note.timestamp, formatter: itemFormatter)").font(.footnote)
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }.frame(width: geometry.size.width / 3)
+                        }
                     }
+                }
                     
                     Spacer()
                     
@@ -59,8 +127,8 @@ struct ContentView: View {
                         }.pickerStyle(SegmentedPickerStyle())
                         Button("Add Initiative") {
                             addInitiative()
-                        }
-                    }.padding()
+                        }.padding()
+                    }
                 }
             }
         }
