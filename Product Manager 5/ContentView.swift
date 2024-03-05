@@ -24,6 +24,8 @@ struct ContentView: View {
                     }
             } else {
                 VStack{
+                    Text("Highest")
+                        .font(.title)
                     ForEach(highestPriorityInitiatives) { initiative in
                         Button(action: {
                             self.selectedInitiative = initiative
@@ -49,6 +51,8 @@ struct ContentView: View {
                         HStack{
                             
                             VStack {
+                                Text("Low")
+                                    .font(.title)
                                 ForEach(lowPriorityInitiatives) { initiative in
                                     Button(action: {
                                         self.selectedInitiative = initiative
@@ -70,6 +74,8 @@ struct ContentView: View {
                             }.frame(width: geometry.size.width / 3)
                             Divider()
                             VStack {
+                                Text("Medium")
+                                    .font(.title)
                                 ForEach(mediumPriorityInitiatives) { initiative in
                                     Button(action: {
                                         self.selectedInitiative = initiative
@@ -91,6 +97,8 @@ struct ContentView: View {
                             }.frame(width: geometry.size.width / 3)
                             Divider()
                             VStack {
+                                Text("High")
+                                    .font(.title)
                                 ForEach(highPriorityInitiatives) { initiative in
                                     Button(action: {
                                         self.selectedInitiative = initiative
@@ -108,7 +116,9 @@ struct ContentView: View {
                                             }
                                         }
                                     }
+                                
                                 }
+                              
                             }.frame(width: geometry.size.width / 3)
                         }
                     }
@@ -125,9 +135,18 @@ struct ContentView: View {
                             Text("High").tag(Priority.high)
                             Text("Highest").tag(Priority.highest)
                         }.pickerStyle(SegmentedPickerStyle())
-                        Button("Add Initiative") {
-                            addInitiative()
-                        }.padding()
+                        
+                        Button(action: {
+                                      addInitiative()
+                                  }) {
+                                      Text("Add Initiative")
+                                          .frame(maxWidth: .infinity) // Makes the button take the full width
+                                          .padding() // Adds padding inside the button for better touch area
+                                          .background(Color.blue) // Set your desired background color
+                                          .foregroundColor(.white) // Set your desired foreground color
+                                          .font(.headline) // Set your desired font
+                                  }
+                                  .buttonStyle(PlainButtonStyle())
                     }
                 }
             }
