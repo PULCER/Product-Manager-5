@@ -39,9 +39,9 @@ struct ContentView: View {
                         GeometryReader { geometry in
                             HStack{
                                 VStack {
-                                    Text("Low")
+                                    Text("High")
                                         .font(.title)
-                                    ForEach(lowPriorityInitiatives) { initiative in
+                                    ForEach(highPriorityInitiatives) { initiative in
                                         Button(action: {
                                             self.selectedInitiative = initiative
                                         }) {
@@ -63,9 +63,9 @@ struct ContentView: View {
                                 }.frame(width: geometry.size.width / 3)
                                 Divider()
                                 VStack {
-                                    Text("High")
+                                    Text("Low")
                                         .font(.title)
-                                    ForEach(highPriorityInitiatives) { initiative in
+                                    ForEach(lowPriorityInitiatives) { initiative in
                                         Button(action: {
                                             self.selectedInitiative = initiative
                                         }) {
@@ -96,11 +96,11 @@ struct ContentView: View {
                         addInitiative()
                     }) {
                         Text("Add Initiative")
-                            .frame(maxWidth: .infinity) // Makes the button take the full width
-                            .padding() // Adds padding inside the button for better touch area
-                            .background(Color.blue) // Set your desired background color
-                            .foregroundColor(.white) // Set your desired foreground color
-                            .font(.headline) // Set your desired font
+                            .frame(maxWidth: .infinity)
+                            .padding()
+                            .background(Color.blue)
+                            .foregroundColor(.white)
+                            .font(.headline)
                     }
                     .buttonStyle(PlainButtonStyle())
                 }
