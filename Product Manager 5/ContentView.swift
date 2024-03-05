@@ -9,6 +9,7 @@ struct ContentView: View {
     @State private var summary: String = ""
     @State private var priority: Priority = .low
     @State private var notes: [Note] = []
+    @State private var tasks: [Task] = []
     @State private var selectedInitiative: Initiative? = nil
     
     var body: some View {
@@ -124,7 +125,7 @@ struct ContentView: View {
     
     private func addInitiative() {
         let newInitiative = Initiative(title: title)
-        newInitiative.updateDetails(summary: summary, notes: notes, priority: priority)
+        newInitiative.updateDetails(summary: summary, notes: notes, tasks: tasks,  priority: priority)
         modelContext.insert(newInitiative)
         title = ""
         summary = ""
