@@ -47,9 +47,13 @@ struct ContentView: View {
                                         }) {
                                             InitiativeView(initiative: initiative)
                                         }
+                                        .frame(maxWidth: .infinity, alignment: .leading) // Align to the left
                                     }
-                                }.frame(width: geometry.size.width / 3)
+                                    Spacer()
+                                }.frame(width: geometry.size.width / 3, alignment: .leading) // Align to the left
+                                
                                 Divider()
+                                
                                 VStack {
                                     Text("Medium")
                                         .font(.title)
@@ -59,9 +63,13 @@ struct ContentView: View {
                                         }) {
                                             InitiativeView(initiative: initiative)
                                         }
+                                        .frame(maxWidth: .infinity, alignment: .leading) // Align to the left
                                     }
-                                }.frame(width: geometry.size.width / 3)
+                                    Spacer()
+                                }.frame(width: geometry.size.width / 3, alignment: .leading) // Align to the left
+                                
                                 Divider()
+                                
                                 VStack {
                                     Text("Low")
                                         .font(.title)
@@ -71,14 +79,16 @@ struct ContentView: View {
                                         }) {
                                             InitiativeView(initiative: initiative)
                                         }
-                                        
+                                        .frame(maxWidth: .infinity, alignment: .leading) // Align to the left
                                     }
+                                    Spacer()
                                     
-                                }.frame(width: geometry.size.width / 3)
+                                }.frame(width: geometry.size.width / 3, alignment: .leading) // Align to the left
                             }
                         }
                     }
                 }
+
                 
                 Spacer()
                 
