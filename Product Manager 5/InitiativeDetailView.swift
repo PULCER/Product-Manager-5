@@ -6,6 +6,7 @@ struct InitiativeDetailView: View {
 
     @State private var noteTitle: String = ""
     @State private var noteContent: String = ""
+    @State private var showingDeleteConfirmation = false
 
     var body: some View {
         ScrollView {
@@ -19,13 +20,6 @@ struct InitiativeDetailView: View {
                     .textFieldStyle(RoundedBorderTextFieldStyle())
                 TextField("Note Content", text: $noteContent)
                     .textFieldStyle(RoundedBorderTextFieldStyle())
-                Button("Add Note") {
-                    addNoteToInitiative()
-                }
-                .padding()
-                .background(Color.blue)
-                .foregroundColor(.white)
-                .cornerRadius(10)
                 
                 Divider()
                 Text("Notes:").font(.headline)
@@ -37,8 +31,40 @@ struct InitiativeDetailView: View {
                     }
                     .padding()
                 }
+                
+                Spacer()
+                HStack{
+                    
+                    Button("Add Note") {
+                        addNoteToInitiative()
+                    }
+                    .buttonStyle(PlainButtonStyle())
+                    .padding()
+                    .background(Color.blue)
+                    .foregroundColor(.white)
+                    .cornerRadius(10)
+                    
+                    Button("Delete Initiative") {
+                        showingDeleteConfirmation = true
+                        
+                    }
+                    .buttonStyle(PlainButtonStyle())
+                    .padding()
+                    .background(Color.red)
+                    .foregroundColor(.white)
+                    .cornerRadius(10)
+                }
             }
-            .padding()
+        }
+        .alert(isPresented: $showingDeleteConfirmation) {
+            Alert(
+                title: Text("Confirm Deletion"),
+                message: Text("Are you sure you want to delete this initiative?"),
+                primaryButton: .destructive(Text("Delete")) {
+                    deleteInitiative()
+                },
+                secondaryButton: .cancel()
+            )
         }
     }
 
@@ -49,5 +75,9 @@ struct InitiativeDetailView: View {
         noteTitle = ""
         noteContent = ""
     }
-}
 
+    private func deleteInitiative() {
+        try? modelContext.delete(initiative)
+        try? modelContext.save()
+    }
+}
