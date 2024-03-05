@@ -40,7 +40,7 @@ struct InitiativeDetailView: View {
                     }
                     .buttonStyle(PlainButtonStyle())
                     .padding()
-                    .background(Color.blue)
+                    .background(Color.blue.opacity(0.4))
                     .foregroundColor(.white)
                     .cornerRadius(10)
                     
@@ -50,7 +50,7 @@ struct InitiativeDetailView: View {
                     }
                     .buttonStyle(PlainButtonStyle())
                     .padding()
-                    .background(Color.red)
+                    .background(Color.red.opacity(0.4))
                     .foregroundColor(.white)
                     .cornerRadius(10)
                 }

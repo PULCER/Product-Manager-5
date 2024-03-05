@@ -31,13 +31,14 @@ struct ContentView: View {
                             self.selectedInitiative = initiative
                         }) {
                             InitiativeView(initiative: initiative)
-                        }
+                        }.buttonStyle(PlainButtonStyle())
                     }.padding()
                     Divider().padding()
                     
                     VStack{
                         GeometryReader { geometry in
                             HStack{
+                                
                                 VStack {
                                     Text("High")
                                         .font(.title)
@@ -47,10 +48,11 @@ struct ContentView: View {
                                         }) {
                                             InitiativeView(initiative: initiative)
                                         }
-                                        .frame(maxWidth: .infinity, alignment: .leading) // Align to the left
+                                        .frame(maxWidth: .infinity, alignment: .leading)
+                                        .buttonStyle(PlainButtonStyle())
                                     }
                                     Spacer()
-                                }.frame(width: geometry.size.width / 3, alignment: .leading) // Align to the left
+                                }.frame(width: geometry.size.width / 3, alignment: .leading)
                                 
                                 Divider()
                                 
@@ -63,10 +65,11 @@ struct ContentView: View {
                                         }) {
                                             InitiativeView(initiative: initiative)
                                         }
-                                        .frame(maxWidth: .infinity, alignment: .leading) // Align to the left
+                                        .frame(maxWidth: .infinity, alignment: .leading)
+                                        .buttonStyle(PlainButtonStyle())
                                     }
                                     Spacer()
-                                }.frame(width: geometry.size.width / 3, alignment: .leading) // Align to the left
+                                }.frame(width: geometry.size.width / 3, alignment: .leading)
                                 
                                 Divider()
                                 
@@ -79,16 +82,17 @@ struct ContentView: View {
                                         }) {
                                             InitiativeView(initiative: initiative)
                                         }
-                                        .frame(maxWidth: .infinity, alignment: .leading) // Align to the left
+                                        .frame(maxWidth: .infinity, alignment: .leading)
+                                        .buttonStyle(PlainButtonStyle())
                                     }
                                     Spacer()
                                     
-                                }.frame(width: geometry.size.width / 3, alignment: .leading) // Align to the left
+                                }.frame(width: geometry.size.width / 3, alignment: .leading)
                             }
                         }
                     }
                 }
-
+                
                 
                 Spacer()
                 
@@ -108,7 +112,7 @@ struct ContentView: View {
                         Text("Add Initiative")
                             .frame(maxWidth: .infinity)
                             .padding()
-                            .background(Color.blue)
+                            .background(Color.blue.opacity(0.4))
                             .foregroundColor(.white)
                             .font(.headline)
                     }
