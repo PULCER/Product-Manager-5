@@ -6,7 +6,6 @@ struct InitiativeView: View {
     var body: some View {
         VStack(alignment: .leading) {
             Text(initiative.title).font(.headline)
-            Text(initiative.summary).font(.subheadline)
             if !initiative.notes.isEmpty {
                 Text("Notes:").font(.headline)
                 ForEach(initiative.notes) { note in

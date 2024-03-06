@@ -6,7 +6,6 @@ struct ContentView: View {
     @Query private var initiatives: [Initiative]
     
     @State private var title: String = ""
-    @State private var summary: String = ""
     @State private var priority: Priority = .low
     @State private var notes: [Note] = []
     @State private var tasks: [Task] = []
@@ -17,13 +16,14 @@ struct ContentView: View {
         let mediumPriorityInitiatives = initiatives.filter { $0.priority == .medium && !$0.isCompleted }
         let highPriorityInitiatives = initiatives.filter { $0.priority == .high && !$0.isCompleted }
         let highestPriorityInitiatives = initiatives.filter { $0.priority == .highest && !$0.isCompleted }
+        
         VStack {
+            
             if let selectedInitiative = selectedInitiative {
-                InitiativeDetailView(initiative: selectedInitiative)
-                    .onTapGesture {
-                        self.selectedInitiative = nil
-                    }
-            } else {
+                InitiativeDetailView(initiative: selectedInitiative, selectedInitiative: $selectedInitiative)
+            }
+
+            else {
                 VStack{
                     Text("Highest")
                         .font(.title)
@@ -99,7 +99,6 @@ struct ContentView: View {
                 
                 VStack {
                     TextField("Title", text: $title)
-                    TextField("Summary", text: $summary)
                     Picker("Priority", selection: $priority) {
                         Text("Low").tag(Priority.low)
                         Text("Medium").tag(Priority.medium)
@@ -125,12 +124,7 @@ struct ContentView: View {
     
     private func addInitiative() {
         let newInitiative = Initiative(title: title)
-        newInitiative.updateDetails(summary: summary, notes: notes, tasks: tasks,  priority: priority)
         modelContext.insert(newInitiative)
-        title = ""
-        summary = ""
-        notes = []
-        selectedInitiative = nil
     }
 }
 

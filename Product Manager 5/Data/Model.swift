@@ -54,11 +54,22 @@ final class Initiative {
         self.title = title
     }
     
-    func updateDetails(summary: String, notes: [Note], tasks: [Task], priority: Priority, isCompleted: Bool = false) {
-        self.summary = summary
-        self.notes = notes
-        self.tasks = tasks
-        self.priority = priority
-        self.isCompleted = isCompleted
+    func updateDetails(summary: String? = nil, notes: [Note]? = nil, tasks: [Task]? = nil, priority: Priority? = nil, isCompleted: Bool? = nil) {
+        if let summary = summary {
+            self.summary = summary
+        }
+        if let notes = notes {
+            self.notes = notes
+        }
+        if let tasks = tasks {
+            self.tasks = tasks
+        }
+        if let priority = priority {
+            self.priority = priority
+        }
+        if let isCompleted = isCompleted {
+            self.isCompleted = isCompleted
+        }
     }
+
 }

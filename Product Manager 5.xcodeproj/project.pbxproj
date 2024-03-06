@@ -61,8 +61,8 @@
 			isa = PBXGroup;
 			children = (
 				431CE2742B96574D0002D1A1 /* ContentView.swift */,
-				43C9C8AC2B96C6AF00D323B1 /* InitiativeView.swift */,
 				431CE2832B9657980002D1A1 /* InitiativeDetailView.swift */,
+				43C9C8AC2B96C6AF00D323B1 /* InitiativeView.swift */,
 				43C9C8B02B96D44500D323B1 /* Data */,
 				431CE2782B96574E0002D1A1 /* Assets.xcassets */,
 				431CE27D2B96574E0002D1A1 /* Product_Manager_5.entitlements */,
