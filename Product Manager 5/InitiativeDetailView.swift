@@ -44,17 +44,16 @@ struct InitiativeDetailView: View {
                 Divider()
                 
                 Text("Notes:").font(.headline)
-                LazyVGrid(columns: [GridItem(.adaptive(minimum: 150))], spacing: 10) {
+               HStack {
                     ForEach(initiative.notes) { note in
                         Button(action: {
                             selectedNote = note
                         }) {
                             VStack {
                                 Text(note.title)
-                                    .font(.headline)
-                                    .lineLimit(1)
+                                    .lineLimit(2)
                             }
-                            .padding()
+                            .padding(10)
                             .background(Color.blue.opacity(0.4))
                             .foregroundColor(.white)
                             .cornerRadius(10)
@@ -64,26 +63,29 @@ struct InitiativeDetailView: View {
                 }
                 
                 Text("Tasks:").font(.headline)
-                LazyVGrid(columns: [GridItem(.adaptive(minimum: 150))], spacing: 10) {
-                    ForEach(initiative.tasks) { task in
-                        Button(action: {
-                            selectedTask = task
-                        }) {
-                            VStack {
-                                Text(task.title)
-                                    .font(.headline)
-                                    .lineLimit(1)
+                ScrollView{
+                    HStack{
+                        ForEach(initiative.tasks) { task in
+                            Button(action: {
+                                selectedTask = task
+                            }) {
+                                VStack {
+                                    Text(task.title)
+                                        .lineLimit(2)
+                                }
+                                .padding(10)
+                                .background(task.isUrgent ? Color.red.opacity(0.4) : Color.blue.opacity(0.4))
+                                .foregroundColor(.white)
+                                .cornerRadius(10)
                             }
-                            .padding()
-                            .background(task.isUrgent ? Color.red.opacity(0.4) : Color.blue.opacity(0.4))
-                            .foregroundColor(.white)
-                            .cornerRadius(10)
+                            .buttonStyle(PlainButtonStyle())
                         }
-                        .buttonStyle(PlainButtonStyle())
                     }
                 }
                 
                 Spacer()
+                
+                Divider()
                 
                 HStack{
                     

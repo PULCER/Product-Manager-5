@@ -43,14 +43,16 @@ struct ContentView: View {
                                 VStack {
                                     Text("High")
                                         .font(.title)
-                                    ForEach(highPriorityInitiatives) { initiative in
-                                        Button(action: {
-                                            self.selectedInitiative = initiative
-                                        }) {
-                                            InitiativeView(initiative: initiative)
+                                    ScrollView {
+                                        ForEach(highPriorityInitiatives) { initiative in
+                                            Button(action: {
+                                                self.selectedInitiative = initiative
+                                            }) {
+                                                InitiativeView(initiative: initiative)
+                                            }
+                                            .frame(maxWidth: .infinity, alignment: .leading)
+                                            .buttonStyle(PlainButtonStyle())
                                         }
-                                        .frame(maxWidth: .infinity, alignment: .leading)
-                                        .buttonStyle(PlainButtonStyle())
                                     }
                                     Spacer()
                                 }.frame(width: geometry.size.width / 3, alignment: .leading)
@@ -60,14 +62,16 @@ struct ContentView: View {
                                 VStack {
                                     Text("Medium")
                                         .font(.title)
-                                    ForEach(mediumPriorityInitiatives) { initiative in
-                                        Button(action: {
-                                            self.selectedInitiative = initiative
-                                        }) {
-                                            InitiativeView(initiative: initiative)
+                                    ScrollView {
+                                        ForEach(mediumPriorityInitiatives) { initiative in
+                                            Button(action: {
+                                                self.selectedInitiative = initiative
+                                            }) {
+                                                InitiativeView(initiative: initiative)
+                                            }
+                                            .frame(maxWidth: .infinity, alignment: .leading)
+                                            .buttonStyle(PlainButtonStyle())
                                         }
-                                        .frame(maxWidth: .infinity, alignment: .leading)
-                                        .buttonStyle(PlainButtonStyle())
                                     }
                                     Spacer()
                                 }.frame(width: geometry.size.width / 3, alignment: .leading)
@@ -77,14 +81,16 @@ struct ContentView: View {
                                 VStack {
                                     Text("Low")
                                         .font(.title)
-                                    ForEach(lowPriorityInitiatives) { initiative in
-                                        Button(action: {
-                                            self.selectedInitiative = initiative
-                                        }) {
-                                            InitiativeView(initiative: initiative)
+                                    ScrollView {
+                                        ForEach(lowPriorityInitiatives) { initiative in
+                                            Button(action: {
+                                                self.selectedInitiative = initiative
+                                            }) {
+                                                InitiativeView(initiative: initiative)
+                                            }
+                                            .frame(maxWidth: .infinity, alignment: .leading)
+                                            .buttonStyle(PlainButtonStyle())
                                         }
-                                        .frame(maxWidth: .infinity, alignment: .leading)
-                                        .buttonStyle(PlainButtonStyle())
                                     }
                                     Spacer()
                                     
@@ -127,5 +133,3 @@ struct ContentView: View {
         modelContext.insert(newInitiative)
     }
 }
-
-
