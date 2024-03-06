@@ -1,13 +1,24 @@
 import SwiftUI
 import SwiftData
 
-struct AddTaskView: View {
+struct TaskView: View {
     @Environment(\.modelContext) private var modelContext
     @Environment(\.dismiss) private var dismiss
     @State private var taskTitle = ""
     @State private var taskContent = ""
     @State private var isUrgent = false
     var initiative: Initiative
+    var task: Task?
+    
+    init(initiative: Initiative, task: Task? = nil) {
+        self.initiative = initiative
+        self.task = task
+        if let task = task {
+            _taskTitle = State(initialValue: task.title)
+            _taskContent = State(initialValue: task.content)
+            _isUrgent = State(initialValue: task.isUrgent)
+        }
+    }
     
     var body: some View {
         VStack {
@@ -19,25 +30,50 @@ struct AddTaskView: View {
                 .frame(minWidth: 300)
                 .overlay(RoundedRectangle(cornerRadius: 5).stroke(Color.gray, lineWidth: 1))
             
-            Toggle("Is Urgent", isOn: $isUrgent)
+            HStack{
+                Toggle("Is Urgent", isOn: $isUrgent)
+                Spacer()
+            }
             
             HStack{
-                Button("Add Task") {
-                    let newTask = Task(title: taskTitle, content: taskContent, isUrgent: isUrgent)
-                    initiative.tasks.append(newTask)
-                    try? modelContext.save()
-                    dismiss()
+                if task != nil {
+                    Button("Delete Task") {
+                        if let task = task {
+                            initiative.tasks.removeAll { $0 == task }
+                            try? modelContext.save()
+                        }
+                        dismiss()
+                    }
+                    .buttonStyle(PlainButtonStyle())
+                    .padding()
+                    .background(Color.red.opacity(0.4))
+                    .foregroundColor(.white)
+                    .cornerRadius(10)
+                    .frame(minWidth: 50)
+                } else {
+                    Button("Add Task") {
+                        let newTask = Task(title: taskTitle, content: taskContent, isUrgent: isUrgent)
+                        initiative.tasks.append(newTask)
+                        try? modelContext.save()
+                        dismiss()
+                    }
+                    .buttonStyle(PlainButtonStyle())
+                    .padding()
+                    .background(Color.blue.opacity(0.4))
+                    .foregroundColor(.white)
+                    .cornerRadius(10)
+                    .frame(minWidth: 50)
                 }
-                .buttonStyle(PlainButtonStyle())
-                .padding()
-                .background(Color.blue.opacity(0.4))
-                .foregroundColor(.white)
-                .cornerRadius(10)
-                .frame(minWidth: 50)
                 
                 Spacer()
                 
                 Button("Go Back") {
+                    if let task = task {
+                        task.title = taskTitle
+                        task.content = taskContent
+                        task.isUrgent = isUrgent
+                        try? modelContext.save()
+                    }
                     dismiss()
                 }
                 .buttonStyle(PlainButtonStyle())
@@ -47,18 +83,27 @@ struct AddTaskView: View {
                 .cornerRadius(10)
                 .frame(minWidth: 50)
             }
-            
         }
         .padding()
     }
 }
 
-struct AddNoteView: View {
+struct NoteView: View {
     @Environment(\.modelContext) private var modelContext
     @Environment(\.dismiss) private var dismiss
     @State private var noteTitle = ""
     @State private var noteContent = ""
     var initiative: Initiative
+    var note: Note?
+    
+    init(initiative: Initiative, note: Note? = nil) {
+        self.initiative = initiative
+        self.note = note
+        if let note = note {
+            _noteTitle = State(initialValue: note.title)
+            _noteContent = State(initialValue: note.content)
+        }
+    }
     
     var body: some View {
         VStack {
@@ -70,23 +115,44 @@ struct AddNoteView: View {
                 .frame(minWidth: 300)
                 .overlay(RoundedRectangle(cornerRadius: 5).stroke(Color.gray, lineWidth: 1))
             
-            HStack{
-                Button("Add Note") {
-                    let newNote = Note(title: noteTitle, content: noteContent)
-                    initiative.notes.append(newNote)
-                    try? modelContext.save()
-                    dismiss()
+            HStack {
+                if note != nil {
+                    Button("Delete Note") {
+                        if let note = note {
+                            initiative.notes.removeAll { $0 == note }
+                            try? modelContext.save()
+                        }
+                        dismiss()
+                    }
+                    .buttonStyle(PlainButtonStyle())
+                    .padding()
+                    .background(Color.red.opacity(0.4))
+                    .foregroundColor(.white)
+                    .cornerRadius(10)
+                    .frame(minWidth: 50)
+                } else {
+                    Button("Add Note") {
+                        let newNote = Note(title: noteTitle, content: noteContent)
+                        initiative.notes.append(newNote)
+                        try? modelContext.save()
+                        dismiss()
+                    }
+                    .buttonStyle(PlainButtonStyle())
+                    .padding()
+                    .background(Color.blue.opacity(0.4))
+                    .foregroundColor(.white)
+                    .cornerRadius(10)
+                    .frame(minWidth: 50)
                 }
-                .buttonStyle(PlainButtonStyle())
-                .padding()
-                .background(Color.blue.opacity(0.4))
-                .foregroundColor(.white)
-                .cornerRadius(10)
-                .frame(minWidth: 50)
                 
                 Spacer()
                 
                 Button("Go Back") {
+                    if let note = note {
+                        note.title = noteTitle
+                        note.content = noteContent
+                        try? modelContext.save()
+                    }
                     dismiss()
                 }
                 .buttonStyle(PlainButtonStyle())
@@ -95,7 +161,6 @@ struct AddNoteView: View {
                 .foregroundColor(.white)
                 .cornerRadius(10)
                 .frame(minWidth: 50)
-                
             }
         }
         .padding()

@@ -10,6 +10,8 @@ struct InitiativeDetailView: View {
     @State private var selectedPriority: Priority
     @State private var showingAddTaskModal = false
     @State private var showingAddNoteModal = false
+    @State private var selectedNote: Note?
+    @State private var selectedTask: Task?
     
     init(initiative: Initiative, selectedInitiative: Binding<Initiative?>) {
         self.initiative = initiative
@@ -36,31 +38,50 @@ struct InitiativeDetailView: View {
                     Text("Medium").tag(Priority.medium)
                     Text("High").tag(Priority.high)
                     Text("Highest").tag(Priority.highest)
-                                }
-                                .pickerStyle(MenuPickerStyle())
+                }
+                .pickerStyle(MenuPickerStyle())
                 
                 Divider()
                 
                 Text("Notes:").font(.headline)
-                ForEach(initiative.notes) { note in
-                    VStack(alignment: .leading) {
-                        Text(note.title).font(.headline)
-                        Text(note.content).font(.subheadline)
-                        Text("Timestamp: \(note.timestamp, formatter: itemFormatter)").font(.footnote)
-                    }
-                    .padding()
-                }
-                
-                Text("Tasks:").font(.headline)
-                ForEach(initiative.tasks) { task in
-                    VStack(alignment: .leading) {
-                        Text(task.title).font(.headline)
-                        Text(task.content).font(.subheadline)
-                        Text("Timestamp: \(task.timestamp, formatter: itemFormatter)").font(.footnote)
-                        Text("Urgent: \(task.isUrgent ? "Yes" : "No")").font(.footnote)
-                    }
-                    .padding()
-                }
+                             LazyVGrid(columns: [GridItem(.adaptive(minimum: 150))], spacing: 10) {
+                                 ForEach(initiative.notes) { note in
+                                     Button(action: {
+                                         selectedNote = note
+                                     }) {
+                                         VStack {
+                                             Text(note.title)
+                                                 .font(.headline)
+                                                 .lineLimit(1)
+                                         }
+                                         .padding()
+                                         .background(Color.blue.opacity(0.4))
+                                         .foregroundColor(.white)
+                                         .cornerRadius(10)
+                                     }
+                                     .buttonStyle(PlainButtonStyle())
+                                 }
+                             }
+                             
+                             Text("Tasks:").font(.headline)
+                             LazyVGrid(columns: [GridItem(.adaptive(minimum: 150))], spacing: 10) {
+                                 ForEach(initiative.tasks) { task in
+                                     Button(action: {
+                                         selectedTask = task
+                                     }) {
+                                         VStack {
+                                             Text(task.title)
+                                                 .font(.headline)
+                                                 .lineLimit(1)
+                                         }
+                                         .padding()
+                                         .background(task.isUrgent ? Color.red.opacity(0.4) : Color.blue.opacity(0.4))
+                                         .foregroundColor(.white)
+                                         .cornerRadius(10)
+                                     }
+                                     .buttonStyle(PlainButtonStyle())
+                                 }
+                             }
                 
                 Spacer()
                 HStack{
@@ -74,7 +95,7 @@ struct InitiativeDetailView: View {
                     .foregroundColor(.white)
                     .cornerRadius(10)
                     .sheet(isPresented: $showingAddTaskModal) {
-                        AddTaskView(initiative: initiative)
+                        TaskView(initiative: initiative)
                     }
                     
                     Button("Add Note") {
@@ -86,7 +107,7 @@ struct InitiativeDetailView: View {
                     .foregroundColor(.white)
                     .cornerRadius(10)
                     .sheet(isPresented: $showingAddNoteModal) {
-                        AddNoteView(initiative: initiative)
+                        NoteView(initiative: initiative)
                     }
                     
                     Button("Delete Initiative") {
@@ -112,7 +133,24 @@ struct InitiativeDetailView: View {
                     
                 }
             }
+            .sheet(isPresented: $showingAddTaskModal) {
+                           TaskView(initiative: initiative)
+                       }
+ 
+                       
+                       .sheet(item: $selectedTask) { task in
+                           TaskView(initiative: initiative, task: task)
+                       }
+                       .sheet(isPresented: $showingAddNoteModal) {
+                                       NoteView(initiative: initiative)
+                                   }
+                                   
+                                   
+                                   .sheet(item: $selectedNote) { note in
+                                       NoteView(initiative: initiative, note: note)
+                                   }
         }
+        
         .alert(isPresented: $showingDeleteConfirmation) {
             Alert(
                 title: Text("Confirm Deletion"),
@@ -136,3 +174,4 @@ struct InitiativeDetailView: View {
         self.selectedInitiative = nil
     }
 }
+

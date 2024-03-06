@@ -6,11 +6,13 @@ struct InitiativeView: View {
     var body: some View {
         VStack(alignment: .leading) {
             Text(initiative.title).font(.headline)
+            
             if !initiative.notes.isEmpty {
-                Text("Notes:").font(.headline)
-                ForEach(initiative.notes) { note in
-                    Text(note.content).font(.subheadline)
-                }
+                Text("Notes: \(initiative.notes.count)").font(.subheadline)
+            }
+            
+            if !initiative.tasks.isEmpty {
+                Text("Tasks: \(initiative.tasks.count)").font(.subheadline)
             }
         }
         .padding()
