@@ -7,6 +7,7 @@ struct Product_Manager_5App: App {
         let schema = Schema([
             Initiative.self,
             Note.self,
+            Task.self,
         ])
         let modelConfiguration = ModelConfiguration(schema: schema, isStoredInMemoryOnly: false)
 

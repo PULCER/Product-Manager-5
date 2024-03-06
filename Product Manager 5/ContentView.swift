@@ -130,6 +130,8 @@ struct ContentView: View {
     
     private func addInitiative() {
         let newInitiative = Initiative(title: title)
+        newInitiative.priority = priority
         modelContext.insert(newInitiative)
+        try? modelContext.save()
     }
 }

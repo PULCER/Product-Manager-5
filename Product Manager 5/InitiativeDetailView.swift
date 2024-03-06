@@ -165,6 +165,7 @@ struct InitiativeDetailView: View {
     private func updateInitiativeDetails() {
         initiative.title = editedTitle
         initiative.summary = editedSummary
+        initiative.priority = selectedPriority 
     }
     
     private func deleteInitiative() {
