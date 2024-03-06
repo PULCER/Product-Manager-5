@@ -20,7 +20,7 @@ struct InitiativeDetailView: View {
         _editedSummary = State(initialValue: initiative.summary)
         _selectedPriority = State(initialValue: initiative.priority)
     }
-
+    
     var body: some View {
         ScrollView {
             VStack(alignment: .leading) {
@@ -44,46 +44,47 @@ struct InitiativeDetailView: View {
                 Divider()
                 
                 Text("Notes:").font(.headline)
-                             LazyVGrid(columns: [GridItem(.adaptive(minimum: 150))], spacing: 10) {
-                                 ForEach(initiative.notes) { note in
-                                     Button(action: {
-                                         selectedNote = note
-                                     }) {
-                                         VStack {
-                                             Text(note.title)
-                                                 .font(.headline)
-                                                 .lineLimit(1)
-                                         }
-                                         .padding()
-                                         .background(Color.blue.opacity(0.4))
-                                         .foregroundColor(.white)
-                                         .cornerRadius(10)
-                                     }
-                                     .buttonStyle(PlainButtonStyle())
-                                 }
-                             }
-                             
-                             Text("Tasks:").font(.headline)
-                             LazyVGrid(columns: [GridItem(.adaptive(minimum: 150))], spacing: 10) {
-                                 ForEach(initiative.tasks) { task in
-                                     Button(action: {
-                                         selectedTask = task
-                                     }) {
-                                         VStack {
-                                             Text(task.title)
-                                                 .font(.headline)
-                                                 .lineLimit(1)
-                                         }
-                                         .padding()
-                                         .background(task.isUrgent ? Color.red.opacity(0.4) : Color.blue.opacity(0.4))
-                                         .foregroundColor(.white)
-                                         .cornerRadius(10)
-                                     }
-                                     .buttonStyle(PlainButtonStyle())
-                                 }
-                             }
+                LazyVGrid(columns: [GridItem(.adaptive(minimum: 150))], spacing: 10) {
+                    ForEach(initiative.notes) { note in
+                        Button(action: {
+                            selectedNote = note
+                        }) {
+                            VStack {
+                                Text(note.title)
+                                    .font(.headline)
+                                    .lineLimit(1)
+                            }
+                            .padding()
+                            .background(Color.blue.opacity(0.4))
+                            .foregroundColor(.white)
+                            .cornerRadius(10)
+                        }
+                        .buttonStyle(PlainButtonStyle())
+                    }
+                }
+                
+                Text("Tasks:").font(.headline)
+                LazyVGrid(columns: [GridItem(.adaptive(minimum: 150))], spacing: 10) {
+                    ForEach(initiative.tasks) { task in
+                        Button(action: {
+                            selectedTask = task
+                        }) {
+                            VStack {
+                                Text(task.title)
+                                    .font(.headline)
+                                    .lineLimit(1)
+                            }
+                            .padding()
+                            .background(task.isUrgent ? Color.red.opacity(0.4) : Color.blue.opacity(0.4))
+                            .foregroundColor(.white)
+                            .cornerRadius(10)
+                        }
+                        .buttonStyle(PlainButtonStyle())
+                    }
+                }
                 
                 Spacer()
+                
                 HStack{
                     
                     Button("Add Task") {
@@ -134,21 +135,17 @@ struct InitiativeDetailView: View {
                 }
             }
             .sheet(isPresented: $showingAddTaskModal) {
-                           TaskView(initiative: initiative)
-                       }
- 
-                       
-                       .sheet(item: $selectedTask) { task in
-                           TaskView(initiative: initiative, task: task)
-                       }
-                       .sheet(isPresented: $showingAddNoteModal) {
-                                       NoteView(initiative: initiative)
-                                   }
-                                   
-                                   
-                                   .sheet(item: $selectedNote) { note in
-                                       NoteView(initiative: initiative, note: note)
-                                   }
+                TaskView(initiative: initiative)
+            }
+            .sheet(item: $selectedTask) { task in
+                TaskView(initiative: initiative, task: task)
+            }
+            .sheet(isPresented: $showingAddNoteModal) {
+                NoteView(initiative: initiative)
+            }
+            .sheet(item: $selectedNote) { note in
+                NoteView(initiative: initiative, note: note)
+            }
         }
         
         .alert(isPresented: $showingDeleteConfirmation) {
@@ -167,7 +164,7 @@ struct InitiativeDetailView: View {
         initiative.title = editedTitle
         initiative.summary = editedSummary
     }
-
+    
     private func deleteInitiative() {
         modelContext.delete(initiative)
         try? modelContext.save()
