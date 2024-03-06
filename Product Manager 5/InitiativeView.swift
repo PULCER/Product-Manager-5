@@ -2,17 +2,17 @@ import SwiftUI
 
 struct InitiativeView: View {
     let initiative: Initiative
-
+    
     var body: some View {
         VStack(alignment: .leading) {
             Text(initiative.title).font(.headline)
             
-            if !initiative.notes.isEmpty {
-                Text("Notes: \(initiative.notes.count)").font(.subheadline)
+            if let notes = initiative.notes, !notes.isEmpty {
+                Text("Notes: \(notes.count)").font(.subheadline)
             }
             
-            if !initiative.tasks.isEmpty {
-                Text("Tasks: \(initiative.tasks.count)").font(.subheadline)
+            if let tasks = initiative.tasks, !tasks.isEmpty {
+                Text("Tasks: \(tasks.count)").font(.subheadline)
             }
         }
         .padding()

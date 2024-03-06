@@ -44,44 +44,48 @@ struct InitiativeDetailView: View {
                 Divider()
                 
                 Text("Notes:").font(.headline)
-               HStack {
-                    ForEach(initiative.notes) { note in
-                        Button(action: {
-                            selectedNote = note
-                        }) {
-                            VStack {
-                                Text(note.title)
-                                    .lineLimit(2)
-                            }
-                            .padding(10)
-                            .background(Color.blue.opacity(0.4))
-                            .foregroundColor(.white)
-                            .cornerRadius(10)
-                        }
-                        .buttonStyle(PlainButtonStyle())
-                    }
-                }
+                HStack {
+                               if let notes = initiative.notes {
+                                   ForEach(notes) { note in
+                                       Button(action: {
+                                           selectedNote = note
+                                       }) {
+                                           VStack {
+                                               Text(note.title)
+                                                   .lineLimit(2)
+                                           }
+                                           .padding(10)
+                                           .background(Color.blue.opacity(0.4))
+                                           .foregroundColor(.white)
+                                           .cornerRadius(10)
+                                       }
+                                       .buttonStyle(PlainButtonStyle())
+                                   }
+                               }
+                           }
                 
                 Text("Tasks:").font(.headline)
-                ScrollView{
-                    HStack{
-                        ForEach(initiative.tasks) { task in
-                            Button(action: {
-                                selectedTask = task
-                            }) {
-                                VStack {
-                                    Text(task.title)
-                                        .lineLimit(2)
-                                }
-                                .padding(10)
-                                .background(task.isUrgent ? Color.red.opacity(0.4) : Color.blue.opacity(0.4))
-                                .foregroundColor(.white)
-                                .cornerRadius(10)
-                            }
-                            .buttonStyle(PlainButtonStyle())
-                        }
-                    }
-                }
+                             ScrollView {
+                                 HStack {
+                                     if let tasks = initiative.tasks {
+                                         ForEach(tasks) { task in
+                                             Button(action: {
+                                                 selectedTask = task
+                                             }) {
+                                                 VStack {
+                                                     Text(task.title)
+                                                         .lineLimit(2)
+                                                 }
+                                                 .padding(10)
+                                                 .background(task.isUrgent ? Color.red.opacity(0.4) : Color.blue.opacity(0.4))
+                                                 .foregroundColor(.white)
+                                                 .cornerRadius(10)
+                                             }
+                                             .buttonStyle(PlainButtonStyle())
+                                         }
+                                     }
+                                 }
+                             }
                 
                 Spacer()
                 

@@ -38,10 +38,11 @@ struct TaskView: View {
             HStack{
                 if task != nil {
                     Button("Delete Task") {
-                        if let task = task {
-                            initiative.tasks.removeAll { $0 == task }
-                            try? modelContext.save()
-                        }
+                                            if let task = task, var tasks = initiative.tasks {
+                                                tasks.removeAll { $0 == task }
+                                                initiative.tasks = tasks
+                                                try? modelContext.save()
+                                            }
                         dismiss()
                     }
                     .buttonStyle(PlainButtonStyle())
@@ -52,9 +53,9 @@ struct TaskView: View {
                     .frame(minWidth: 50)
                 } else {
                     Button("Add Task") {
-                        let newTask = Task(title: taskTitle, content: taskContent, isUrgent: isUrgent)
-                        initiative.tasks.append(newTask)
-                        try? modelContext.save()
+                                           let newTask = Task(title: taskTitle, content: taskContent, isUrgent: isUrgent)
+                                           initiative.tasks?.append(newTask)
+                                           try? modelContext.save()
                         dismiss()
                     }
                     .buttonStyle(PlainButtonStyle())
@@ -118,10 +119,11 @@ struct NoteView: View {
             HStack {
                 if note != nil {
                     Button("Delete Note") {
-                        if let note = note {
-                            initiative.notes.removeAll { $0 == note }
-                            try? modelContext.save()
-                        }
+                        if let note = note, var notes = initiative.notes {
+                                                   notes.removeAll { $0 == note }
+                                                   initiative.notes = notes
+                                                   try? modelContext.save()
+                                               }
                         dismiss()
                     }
                     .buttonStyle(PlainButtonStyle())
@@ -133,8 +135,8 @@ struct NoteView: View {
                 } else {
                     Button("Add Note") {
                         let newNote = Note(title: noteTitle, content: noteContent)
-                        initiative.notes.append(newNote)
-                        try? modelContext.save()
+                                              initiative.notes?.append(newNote)
+                                              try? modelContext.save()
                         dismiss()
                     }
                     .buttonStyle(PlainButtonStyle())
