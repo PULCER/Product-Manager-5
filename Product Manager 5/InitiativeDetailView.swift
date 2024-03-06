@@ -10,8 +10,8 @@ struct InitiativeDetailView: View {
     @State private var selectedPriority: Priority
     @State private var showingAddTaskModal = false
     @State private var showingAddNoteModal = false
-    @State private var selectedNote: Note?
-    @State private var selectedTask: Task?
+    @State private var selectedNote: InitiativeNote?
+    @State private var selectedTask: InitiativeTask?
     
     init(initiative: Initiative, selectedInitiative: Binding<Initiative?>) {
         self.initiative = initiative

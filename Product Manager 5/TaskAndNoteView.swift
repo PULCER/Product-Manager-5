@@ -8,9 +8,9 @@ struct TaskView: View {
     @State private var taskContent = ""
     @State private var isUrgent = false
     var initiative: Initiative
-    var task: Task?
+    var task: InitiativeTask?
     
-    init(initiative: Initiative, task: Task? = nil) {
+    init(initiative: Initiative, task: InitiativeTask? = nil) {
         self.initiative = initiative
         self.task = task
         if let task = task {
@@ -53,7 +53,7 @@ struct TaskView: View {
                     .frame(minWidth: 50)
                 } else {
                     Button("Add Task") {
-                                           let newTask = Task(title: taskTitle, content: taskContent, isUrgent: isUrgent)
+                                           let newTask = InitiativeTask(title: taskTitle, content: taskContent, isUrgent: isUrgent)
                                            initiative.tasks?.append(newTask)
                                            try? modelContext.save()
                         dismiss()
@@ -95,9 +95,9 @@ struct NoteView: View {
     @State private var noteTitle = ""
     @State private var noteContent = ""
     var initiative: Initiative
-    var note: Note?
+    var note: InitiativeNote?
     
-    init(initiative: Initiative, note: Note? = nil) {
+    init(initiative: Initiative, note: InitiativeNote? = nil) {
         self.initiative = initiative
         self.note = note
         if let note = note {
@@ -134,7 +134,7 @@ struct NoteView: View {
                     .frame(minWidth: 50)
                 } else {
                     Button("Add Note") {
-                        let newNote = Note(title: noteTitle, content: noteContent)
+                        let newNote = InitiativeNote(title: noteTitle, content: noteContent)
                                               initiative.notes?.append(newNote)
                                               try? modelContext.save()
                         dismiss()

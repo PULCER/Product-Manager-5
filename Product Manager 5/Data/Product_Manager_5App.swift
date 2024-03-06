@@ -3,14 +3,15 @@ import SwiftData
 
 @main
 struct Product_Manager_5App: App {
+    
     var sharedModelContainer: ModelContainer = {
         let schema = Schema([
             Initiative.self,
-            Note.self,
-            Task.self,
+            InitiativeNote.self,
+            InitiativeTask.self,
         ])
         let modelConfiguration = ModelConfiguration(schema: schema, isStoredInMemoryOnly: false)
-
+        
         do {
             return try ModelContainer(for: schema, configurations: [modelConfiguration])
         } catch {

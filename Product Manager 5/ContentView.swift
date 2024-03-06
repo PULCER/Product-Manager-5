@@ -7,8 +7,8 @@ struct ContentView: View {
     
     @State private var title: String = ""
     @State private var priority: Priority = .low
-    @State private var notes: [Note] = []
-    @State private var tasks: [Task] = []
+    @State private var notes: [InitiativeNote] = []
+    @State private var tasks: [InitiativeTask] = []
     @State private var selectedInitiative: Initiative? = nil
     
     var body: some View {
