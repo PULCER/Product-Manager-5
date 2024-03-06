@@ -20,18 +20,32 @@ struct ContentView: View {
             if let selectedInitiative = selectedInitiative {
                 InitiativeDetailView(initiative: selectedInitiative, selectedInitiative: $selectedInitiative)
             }
-
+            
             else {
                 VStack{
                     Text("Highest")
                         .font(.title)
-                    ForEach(highestPriorityInitiatives) { initiative in
-                        Button(action: {
-                            self.selectedInitiative = initiative
-                        }) {
-                            InitiativeView(initiative: initiative)
-                        }.buttonStyle(PlainButtonStyle())
-                    }.padding()
+                    if highestPriorityInitiatives.count > 1 {
+                        ScrollView(.horizontal) {
+                            HStack {
+                                ForEach(highestPriorityInitiatives) { initiative in
+                                    Button(action: {
+                                        self.selectedInitiative = initiative
+                                    }) {
+                                        InitiativeView(initiative: initiative)
+                                    }.buttonStyle(PlainButtonStyle())
+                                }
+                            }
+                        }
+                    } else {
+                        ForEach(highestPriorityInitiatives) { initiative in
+                            Button(action: {
+                                self.selectedInitiative = initiative
+                            }) {
+                                InitiativeView(initiative: initiative)
+                            }.buttonStyle(PlainButtonStyle())
+                        }
+                    }
                     Divider().padding()
                     
                     VStack{
