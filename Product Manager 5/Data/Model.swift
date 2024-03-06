@@ -10,10 +10,11 @@ enum Priority: String, Codable {
 
 @Model
 final class Note {
-    var title: String
-    var content: String
+    var title: String = ""
+    var content: String = ""
     var timestamp: Date = Date()
     var isCompleted: Bool = false
+    @Relationship(inverse: \Initiative.notes) var initiative: Initiative?
 
     init(title: String, content: String, timestamp: Date = Date(), isCompleted: Bool = false) {
         self.title = title
@@ -25,11 +26,12 @@ final class Note {
 
 @Model
 final class Task {
-    var title: String
-    var content: String
+    var title: String = ""
+    var content: String = ""
     var timestamp: Date = Date()
     var isUrgent: Bool = false
     var isCompleted: Bool = false
+    @Relationship(inverse: \Initiative.tasks) var initiative: Initiative?
 
     init(title: String, content: String, timestamp: Date = Date(), isUrgent: Bool = false, isCompleted: Bool = false) {
         self.title = title
@@ -43,10 +45,10 @@ final class Task {
 
 @Model
 final class Initiative {
-    var title: String
+    var title: String = ""
     var summary: String = ""
-    @Relationship(deleteRule: .cascade) var notes: [Note] = []
-    @Relationship(deleteRule: .cascade) var tasks: [Task] = []
+    @Relationship(deleteRule: .cascade) var notes: [Note]? = []
+    @Relationship(deleteRule: .cascade) var tasks: [Task]? = []
     var priority: Priority = Priority(rawValue: "Low") ?? .low
     var isCompleted: Bool = false
     
