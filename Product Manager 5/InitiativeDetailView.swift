@@ -1,4 +1,5 @@
 import SwiftUI
+import Foundation
 
 struct InitiativeDetailView: View {
     @Environment(\.modelContext) private var modelContext
@@ -112,6 +113,12 @@ struct InitiativeDetailView: View {
                                 .background(Color.blue.opacity(0.4))
                                 .foregroundColor(.white)
                                 .cornerRadius(10)
+                            }
+                            .buttonStyle(PlainButtonStyle())
+                            
+                            Link(destination: link.url) {
+                                Image(systemName: "link")
+                                    .foregroundColor(.blue)
                             }
                             .buttonStyle(PlainButtonStyle())
                         }
@@ -230,5 +237,6 @@ struct InitiativeDetailView: View {
         try? modelContext.save()
         self.selectedInitiative = nil
     }
+    
 }
 
