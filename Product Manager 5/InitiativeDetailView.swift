@@ -99,54 +99,57 @@ struct InitiativeDetailView: View {
                 
                 Divider()
                 
-                HStack{
-                    
-                    Button("Add Task") {
-                        showingAddTaskModal = true
-                    }
-                    .buttonStyle(PlainButtonStyle())
-                    .padding()
-                    .background(Color.blue.opacity(0.4))
-                    .foregroundColor(.white)
-                    .cornerRadius(10)
-                    .sheet(isPresented: $showingAddTaskModal) {
-                        TaskView(initiative: initiative)
-                    }
-                    
-                    Button("Add Note") {
-                        showingAddNoteModal = true
-                    }
-                    .buttonStyle(PlainButtonStyle())
-                    .padding()
-                    .background(Color.blue.opacity(0.4))
-                    .foregroundColor(.white)
-                    .cornerRadius(10)
-                    .sheet(isPresented: $showingAddNoteModal) {
-                        NoteView(initiative: initiative)
-                    }
-                    
-                    Button("Delete Initiative") {
-                        showingDeleteConfirmation = true
-                        
-                    }
-                    .buttonStyle(PlainButtonStyle())
-                    .padding()
-                    .background(Color.red.opacity(0.4))
-                    .foregroundColor(.white)
-                    .cornerRadius(10)
-                    
-                    Button("Go Back") {
-                        updateInitiativeDetails()
-                        try? modelContext.save()
-                        self.selectedInitiative = nil
-                    }
-                    .buttonStyle(PlainButtonStyle())
-                    .padding()
-                    .background(Color.teal.opacity(0.4))
-                    .foregroundColor(.white)
-                    .cornerRadius(10)
-                    
-                }
+                HStack {
+                                    Button(action: {
+                                        showingAddTaskModal = true
+                                    }) {
+                                        Text("Add Task")
+                                            .frame(maxWidth: .infinity)
+                                            .padding()
+                                            .background(Color.blue.opacity(0.4))
+                                            .foregroundColor(.white)
+                                            .cornerRadius(10)
+                                    }
+                                    .buttonStyle(PlainButtonStyle())
+                                    
+                                    Button(action: {
+                                        showingAddNoteModal = true
+                                    }) {
+                                        Text("Add Note")
+                                            .frame(maxWidth: .infinity)
+                                            .padding()
+                                            .background(Color.blue.opacity(0.4))
+                                            .foregroundColor(.white)
+                                            .cornerRadius(10)
+                                    }
+                                    .buttonStyle(PlainButtonStyle())
+                                    
+                                    Button(action: {
+                                        showingDeleteConfirmation = true
+                                    }) {
+                                        Text("Delete Initiative")
+                                            .frame(maxWidth: .infinity)
+                                            .padding()
+                                            .background(Color.red.opacity(0.4))
+                                            .foregroundColor(.white)
+                                            .cornerRadius(10)
+                                    }
+                                    .buttonStyle(PlainButtonStyle())
+                                    
+                                    Button(action: {
+                                        updateInitiativeDetails()
+                                        try? modelContext.save()
+                                        self.selectedInitiative = nil
+                                    }) {
+                                        Text("Go Back")
+                                            .frame(maxWidth: .infinity)
+                                            .padding()
+                                            .background(Color.teal.opacity(0.4))
+                                            .foregroundColor(.white)
+                                            .cornerRadius(10)
+                                    }
+                                    .buttonStyle(PlainButtonStyle())
+                                }
             }
             .sheet(isPresented: $showingAddTaskModal) {
                 TaskView(initiative: initiative)
@@ -178,7 +181,7 @@ struct InitiativeDetailView: View {
         initiative.title = editedTitle
         initiative.summary = editedSummary
         initiative.priority = selectedPriority 
-        initiative.isCompleted = selectedStatus 
+        initiative.isCompleted = selectedStatus
     }
     
     private func deleteInitiative() {

@@ -8,12 +8,13 @@ struct ContentView: View {
     @State private var title: String = ""
     @State private var priority: Priority = .low
     @State private var selectedInitiative: Initiative? = nil
+    @State private var showCompleted: Bool = false
     
     var body: some View {
-        let lowPriorityInitiatives = initiatives.filter { $0.priority == .low && !$0.isCompleted }
-        let mediumPriorityInitiatives = initiatives.filter { $0.priority == .medium && !$0.isCompleted }
-        let highPriorityInitiatives = initiatives.filter { $0.priority == .high && !$0.isCompleted }
-        let highestPriorityInitiatives = initiatives.filter { $0.priority == .highest && !$0.isCompleted }
+        let lowPriorityInitiatives = initiatives.filter { $0.priority == .low && ($0.isCompleted == showCompleted) }
+        let mediumPriorityInitiatives = initiatives.filter { $0.priority == .medium && ($0.isCompleted == showCompleted) }
+        let highPriorityInitiatives = initiatives.filter { $0.priority == .high && ($0.isCompleted == showCompleted) }
+        let highestPriorityInitiatives = initiatives.filter { $0.priority == .highest && ($0.isCompleted == showCompleted) }
         
         VStack {
             
@@ -23,6 +24,7 @@ struct ContentView: View {
             
             else {
                 VStack{
+                
                     Text("Highest")
                         .font(.title)
                     if highestPriorityInitiatives.count > 1 {
@@ -116,12 +118,16 @@ struct ContentView: View {
                 
                 VStack {
                     TextField("Title", text: $title)
-                    Picker("Priority", selection: $priority) {
-                        Text("Low").tag(Priority.low)
-                        Text("Medium").tag(Priority.medium)
-                        Text("High").tag(Priority.high)
-                        Text("Highest").tag(Priority.highest)
-                    }.pickerStyle(SegmentedPickerStyle())
+                    
+                    HStack{
+                        Picker("Priority", selection: $priority) {
+                            Text("Low").tag(Priority.low)
+                            Text("Medium").tag(Priority.medium)
+                            Text("High").tag(Priority.high)
+                            Text("Highest").tag(Priority.highest)
+                        }.pickerStyle(SegmentedPickerStyle())
+                        Toggle("Show Completed", isOn: $showCompleted)
+                    }
                     
                     Button(action: {
                         addInitiative()
