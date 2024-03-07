@@ -83,5 +83,6 @@ struct LinkView: View {
             }
         }
         .padding()
+        .frame(width: 300)
     }
 }
