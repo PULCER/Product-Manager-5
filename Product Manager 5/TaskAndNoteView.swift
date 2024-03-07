@@ -7,6 +7,7 @@ struct TaskView: View {
     @State private var taskTitle = ""
     @State private var taskContent = ""
     @State private var isUrgent = false
+    @State private var isCompleted = false
     var initiative: Initiative
     var task: InitiativeTask?
     
@@ -17,6 +18,7 @@ struct TaskView: View {
             _taskTitle = State(initialValue: task.title)
             _taskContent = State(initialValue: task.content)
             _isUrgent = State(initialValue: task.isUrgent)
+            _isCompleted = State(initialValue: task.isCompleted)
         }
     }
     
@@ -31,9 +33,10 @@ struct TaskView: View {
                 .overlay(RoundedRectangle(cornerRadius: 5).stroke(Color.gray, lineWidth: 1))
             
             HStack{
-                Toggle("Is Urgent", isOn: $isUrgent)
+                           Toggle("Urgent", isOn: $isUrgent)
+                           Toggle("Complete", isOn: $isCompleted)
                 Spacer()
-            }
+                       }
             
             HStack{
                 if task != nil {
@@ -55,7 +58,7 @@ struct TaskView: View {
                     .buttonStyle(PlainButtonStyle())
                 } else {
                     Button(action: {
-                        let newTask = InitiativeTask(title: taskTitle, content: taskContent, isUrgent: isUrgent)
+                        let newTask = InitiativeTask(title: taskTitle, content: taskContent, isUrgent: isUrgent, isCompleted: isCompleted)
                         initiative.tasks?.append(newTask)
                         try? modelContext.save()
                         dismiss()
@@ -73,13 +76,14 @@ struct TaskView: View {
                 Spacer()
                 
                 Button(action: {
-                    if let task = task {
-                        task.title = taskTitle
-                        task.content = taskContent
-                        task.isUrgent = isUrgent
-                        try? modelContext.save()
-                    }
-                    dismiss()
+                              if let task = task {
+                                  task.title = taskTitle
+                                  task.content = taskContent
+                                  task.isUrgent = isUrgent
+                                  task.isCompleted = isCompleted
+                                  try? modelContext.save()
+                              }
+                              dismiss()
                 }) {
                     Text("Go Back")
                         .frame(maxWidth: .infinity)
