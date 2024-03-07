@@ -4,21 +4,19 @@ struct InitiativeView: View {
     let initiative: Initiative
     
     var body: some View {
-        
-        let containsUrgentTask = initiative.tasks?.contains { $0.isUrgent } ?? false
+        let containsUrgentTask = initiative.tasks?.contains(where: { $0.isUrgent && !$0.isCompleted }) ?? false
+
+        let uncompletedTasksCount = initiative.tasks?.filter { !$0.isCompleted }.count ?? 0
         
         VStack(alignment: .leading) {
             Text(initiative.title).font(.headline)
             
             HStack{
-                
                 if let notes = initiative.notes, !notes.isEmpty {
                     Text("Notes: \(notes.count)").font(.subheadline)
                 }
                 
-                if let tasks = initiative.tasks, !tasks.isEmpty {
-                    Text("Tasks: \(tasks.count)").font(.subheadline)
-                }
+                Text("Tasks: \(uncompletedTasksCount)").font(.subheadline)
             }
         }
         .padding()

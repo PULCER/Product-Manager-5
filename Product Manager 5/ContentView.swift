@@ -25,7 +25,6 @@ struct ContentView: View {
             
             else {
                 VStack{
-                
                     Text("Highest")
                         .font(.title)
                     if highestPriorityInitiatives.count > 1 {
@@ -49,6 +48,7 @@ struct ContentView: View {
                             }.buttonStyle(PlainButtonStyle())
                         }
                     }
+                    
                     Divider().padding()
                     
                     VStack{
