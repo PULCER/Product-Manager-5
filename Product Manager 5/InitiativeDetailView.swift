@@ -46,110 +46,110 @@ struct InitiativeDetailView: View {
                 Divider()
                 
                 Picker("Status", selection: $selectedStatus) {
-                                    Text("Incomplete").tag(false)
-                                    Text("Complete").tag(true)
-                                }
-                                .pickerStyle(SegmentedPickerStyle())
+                    Text("Incomplete").tag(false)
+                    Text("Complete").tag(true)
+                }
+                .pickerStyle(SegmentedPickerStyle())
                 
                 Text("Notes:").font(.headline)
                 HStack {
-                               if let notes = initiative.notes {
-                                   ForEach(notes) { note in
-                                       Button(action: {
-                                           selectedNote = note
-                                       }) {
-                                           VStack {
-                                               Text(note.title)
-                                                   .lineLimit(2)
-                                           }
-                                           .padding(10)
-                                           .background(Color.blue.opacity(0.4))
-                                           .foregroundColor(.white)
-                                           .cornerRadius(10)
-                                       }
-                                       .buttonStyle(PlainButtonStyle())
-                                   }
-                               }
-                           }
+                    if let notes = initiative.notes {
+                        ForEach(notes) { note in
+                            Button(action: {
+                                selectedNote = note
+                            }) {
+                                VStack {
+                                    Text(note.title)
+                                        .lineLimit(2)
+                                }
+                                .padding(10)
+                                .background(Color.blue.opacity(0.4))
+                                .foregroundColor(.white)
+                                .cornerRadius(10)
+                            }
+                            .buttonStyle(PlainButtonStyle())
+                        }
+                    }
+                }
                 
                 Text("Tasks:").font(.headline)
-                             ScrollView {
-                                 HStack {
-                                     if let tasks = initiative.tasks {
-                                         ForEach(tasks) { task in
-                                             Button(action: {
-                                                 selectedTask = task
-                                             }) {
-                                                 VStack {
-                                                     Text(task.title)
-                                                         .lineLimit(2)
-                                                 }
-                                                 .padding(10)
-                                                 .background(task.isUrgent ? Color.red.opacity(0.4) : Color.blue.opacity(0.4))
-                                                 .foregroundColor(.white)
-                                                 .cornerRadius(10)
-                                             }
-                                             .buttonStyle(PlainButtonStyle())
-                                         }
-                                     }
-                                 }
-                             }
+                ScrollView {
+                    HStack {
+                        if let tasks = initiative.tasks {
+                            ForEach(tasks) { task in
+                                Button(action: {
+                                    selectedTask = task
+                                }) {
+                                    VStack {
+                                        Text(task.title)
+                                            .lineLimit(2)
+                                    }
+                                    .padding(10)
+                                    .background(task.isUrgent ? Color.red.opacity(0.4) : Color.blue.opacity(0.4))
+                                    .foregroundColor(.white)
+                                    .cornerRadius(10)
+                                }
+                                .buttonStyle(PlainButtonStyle())
+                            }
+                        }
+                    }
+                }
                 
                 Spacer()
                 
                 Divider()
                 
                 HStack {
-                                    Button(action: {
-                                        showingAddTaskModal = true
-                                    }) {
-                                        Text("Add Task")
-                                            .frame(maxWidth: .infinity)
-                                            .padding()
-                                            .background(Color.blue.opacity(0.4))
-                                            .foregroundColor(.white)
-                                            .cornerRadius(10)
-                                    }
-                                    .buttonStyle(PlainButtonStyle())
-                                    
-                                    Button(action: {
-                                        showingAddNoteModal = true
-                                    }) {
-                                        Text("Add Note")
-                                            .frame(maxWidth: .infinity)
-                                            .padding()
-                                            .background(Color.blue.opacity(0.4))
-                                            .foregroundColor(.white)
-                                            .cornerRadius(10)
-                                    }
-                                    .buttonStyle(PlainButtonStyle())
-                                    
-                                    Button(action: {
-                                        showingDeleteConfirmation = true
-                                    }) {
-                                        Text("Delete Initiative")
-                                            .frame(maxWidth: .infinity)
-                                            .padding()
-                                            .background(Color.red.opacity(0.4))
-                                            .foregroundColor(.white)
-                                            .cornerRadius(10)
-                                    }
-                                    .buttonStyle(PlainButtonStyle())
-                                    
-                                    Button(action: {
-                                        updateInitiativeDetails()
-                                        try? modelContext.save()
-                                        self.selectedInitiative = nil
-                                    }) {
-                                        Text("Go Back")
-                                            .frame(maxWidth: .infinity)
-                                            .padding()
-                                            .background(Color.teal.opacity(0.4))
-                                            .foregroundColor(.white)
-                                            .cornerRadius(10)
-                                    }
-                                    .buttonStyle(PlainButtonStyle())
-                                }
+                    Button(action: {
+                        showingAddTaskModal = true
+                    }) {
+                        Text("Add Task")
+                            .frame(maxWidth: .infinity)
+                            .padding()
+                            .background(Color.blue.opacity(0.4))
+                            .foregroundColor(.white)
+                            .cornerRadius(10)
+                    }
+                    .buttonStyle(PlainButtonStyle())
+                    
+                    Button(action: {
+                        showingAddNoteModal = true
+                    }) {
+                        Text("Add Note")
+                            .frame(maxWidth: .infinity)
+                            .padding()
+                            .background(Color.blue.opacity(0.4))
+                            .foregroundColor(.white)
+                            .cornerRadius(10)
+                    }
+                    .buttonStyle(PlainButtonStyle())
+                    
+                    Button(action: {
+                        showingDeleteConfirmation = true
+                    }) {
+                        Text("Delete Initiative")
+                            .frame(maxWidth: .infinity)
+                            .padding()
+                            .background(Color.red.opacity(0.4))
+                            .foregroundColor(.white)
+                            .cornerRadius(10)
+                    }
+                    .buttonStyle(PlainButtonStyle())
+                    
+                    Button(action: {
+                        updateInitiativeDetails()
+                        try? modelContext.save()
+                        self.selectedInitiative = nil
+                    }) {
+                        Text("Go Back")
+                            .frame(maxWidth: .infinity)
+                            .padding()
+                            .background(Color.teal.opacity(0.4))
+                            .foregroundColor(.white)
+                            .cornerRadius(10)
+                    }
+                    .buttonStyle(PlainButtonStyle())
+                }
             }
             .sheet(isPresented: $showingAddTaskModal) {
                 TaskView(initiative: initiative)

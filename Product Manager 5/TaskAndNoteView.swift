@@ -37,38 +37,42 @@ struct TaskView: View {
             
             HStack{
                 if task != nil {
-                    Button("Delete Task") {
-                                            if let task = task, var tasks = initiative.tasks {
-                                                tasks.removeAll { $0 == task }
-                                                initiative.tasks = tasks
-                                                try? modelContext.save()
-                                            }
+                    Button(action: {
+                        if let task = task, var tasks = initiative.tasks {
+                            tasks.removeAll { $0 == task }
+                            initiative.tasks = tasks
+                            try? modelContext.save()
+                        }
                         dismiss()
+                    }) {
+                        Text("Delete Task")
+                            .frame(maxWidth: .infinity)
+                            .padding()
+                            .background(Color.red.opacity(0.4))
+                            .foregroundColor(.white)
+                            .cornerRadius(10)
                     }
                     .buttonStyle(PlainButtonStyle())
-                    .padding()
-                    .background(Color.red.opacity(0.4))
-                    .foregroundColor(.white)
-                    .cornerRadius(10)
-                    .frame(minWidth: 50)
                 } else {
-                    Button("Add Task") {
-                                           let newTask = InitiativeTask(title: taskTitle, content: taskContent, isUrgent: isUrgent)
-                                           initiative.tasks?.append(newTask)
-                                           try? modelContext.save()
+                    Button(action: {
+                        let newTask = InitiativeTask(title: taskTitle, content: taskContent, isUrgent: isUrgent)
+                        initiative.tasks?.append(newTask)
+                        try? modelContext.save()
                         dismiss()
+                    }) {
+                        Text("Add Task")
+                            .frame(maxWidth: .infinity)
+                            .padding()
+                            .background(Color.blue.opacity(0.4))
+                            .foregroundColor(.white)
+                            .cornerRadius(10)
                     }
                     .buttonStyle(PlainButtonStyle())
-                    .padding()
-                    .background(Color.blue.opacity(0.4))
-                    .foregroundColor(.white)
-                    .cornerRadius(10)
-                    .frame(minWidth: 50)
                 }
                 
                 Spacer()
                 
-                Button("Go Back") {
+                Button(action: {
                     if let task = task {
                         task.title = taskTitle
                         task.content = taskContent
@@ -76,13 +80,15 @@ struct TaskView: View {
                         try? modelContext.save()
                     }
                     dismiss()
+                }) {
+                    Text("Go Back")
+                        .frame(maxWidth: .infinity)
+                        .padding()
+                        .background(Color.teal.opacity(0.4))
+                        .foregroundColor(.white)
+                        .cornerRadius(10)
                 }
                 .buttonStyle(PlainButtonStyle())
-                .padding()
-                .background(Color.blue.opacity(0.4))
-                .foregroundColor(.white)
-                .cornerRadius(10)
-                .frame(minWidth: 50)
             }
         }
         .padding()
@@ -118,51 +124,57 @@ struct NoteView: View {
             
             HStack {
                 if note != nil {
-                    Button("Delete Note") {
+                    Button(action: {
                         if let note = note, var notes = initiative.notes {
-                                                   notes.removeAll { $0 == note }
-                                                   initiative.notes = notes
-                                                   try? modelContext.save()
-                                               }
+                            notes.removeAll { $0 == note }
+                            initiative.notes = notes
+                            try? modelContext.save()
+                        }
                         dismiss()
+                    }) {
+                        Text("Delete Note")
+                            .frame(maxWidth: .infinity)
+                            .padding()
+                            .background(Color.red.opacity(0.4))
+                            .foregroundColor(.white)
+                            .cornerRadius(10)
                     }
                     .buttonStyle(PlainButtonStyle())
-                    .padding()
-                    .background(Color.red.opacity(0.4))
-                    .foregroundColor(.white)
-                    .cornerRadius(10)
-                    .frame(minWidth: 50)
                 } else {
-                    Button("Add Note") {
+                    Button(action: {
                         let newNote = InitiativeNote(title: noteTitle, content: noteContent)
-                                              initiative.notes?.append(newNote)
-                                              try? modelContext.save()
+                        initiative.notes?.append(newNote)
+                        try? modelContext.save()
                         dismiss()
+                    }) {
+                        Text("Add Note")
+                            .frame(maxWidth: .infinity)
+                            .padding()
+                            .background(Color.blue.opacity(0.4))
+                            .foregroundColor(.white)
+                            .cornerRadius(10)
                     }
                     .buttonStyle(PlainButtonStyle())
-                    .padding()
-                    .background(Color.blue.opacity(0.4))
-                    .foregroundColor(.white)
-                    .cornerRadius(10)
-                    .frame(minWidth: 50)
                 }
                 
                 Spacer()
                 
-                Button("Go Back") {
+                Button(action: {
                     if let note = note {
                         note.title = noteTitle
                         note.content = noteContent
                         try? modelContext.save()
                     }
                     dismiss()
+                }) {
+                    Text("Go Back")
+                        .frame(maxWidth: .infinity)
+                        .padding()
+                        .background(Color.teal.opacity(0.4))
+                        .foregroundColor(.white)
+                        .cornerRadius(10)
                 }
                 .buttonStyle(PlainButtonStyle())
-                .padding()
-                .background(Color.blue.opacity(0.4))
-                .foregroundColor(.white)
-                .cornerRadius(10)
-                .frame(minWidth: 50)
             }
         }
         .padding()
