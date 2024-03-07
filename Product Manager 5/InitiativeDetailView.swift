@@ -8,6 +8,7 @@ struct InitiativeDetailView: View {
     @State private var editedTitle: String
     @State private var editedSummary: String
     @State private var selectedPriority: Priority
+    @State private var selectedStatus: Bool
     @State private var showingAddTaskModal = false
     @State private var showingAddNoteModal = false
     @State private var selectedNote: InitiativeNote?
@@ -19,6 +20,7 @@ struct InitiativeDetailView: View {
         _editedTitle = State(initialValue: initiative.title)
         _editedSummary = State(initialValue: initiative.summary)
         _selectedPriority = State(initialValue: initiative.priority)
+        _selectedStatus = State(initialValue: initiative.isCompleted)
     }
     
     var body: some View {
@@ -39,9 +41,15 @@ struct InitiativeDetailView: View {
                     Text("High").tag(Priority.high)
                     Text("Highest").tag(Priority.highest)
                 }
-                .pickerStyle(MenuPickerStyle())
+                .pickerStyle(SegmentedPickerStyle())
                 
                 Divider()
+                
+                Picker("Status", selection: $selectedStatus) {
+                                    Text("Incomplete").tag(false)
+                                    Text("Complete").tag(true)
+                                }
+                                .pickerStyle(SegmentedPickerStyle())
                 
                 Text("Notes:").font(.headline)
                 HStack {
@@ -170,6 +178,7 @@ struct InitiativeDetailView: View {
         initiative.title = editedTitle
         initiative.summary = editedSummary
         initiative.priority = selectedPriority 
+        initiative.isCompleted = selectedStatus 
     }
     
     private func deleteInitiative() {
