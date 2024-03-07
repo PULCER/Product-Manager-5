@@ -13,6 +13,8 @@ struct InitiativeDetailView: View {
     @State private var showingAddNoteModal = false
     @State private var selectedNote: InitiativeNote?
     @State private var selectedTask: InitiativeTask?
+    @State private var showingAddLinkModal = false
+      @State private var selectedLink: InitiativeLink?
     
     init(initiative: Initiative, selectedInitiative: Binding<Initiative?>) {
         self.initiative = initiative
@@ -95,6 +97,27 @@ struct InitiativeDetailView: View {
                     }
                 }
                 
+                Text("Links:").font(.headline)
+                HStack {
+                    if let links = initiative.links {
+                        ForEach(links) { link in
+                            Button(action: {
+                                selectedLink = link
+                            }) {
+                                VStack {
+                                    Text(link.title)
+                                        .lineLimit(2)
+                                }
+                                .padding(10)
+                                .background(Color.blue.opacity(0.4))
+                                .foregroundColor(.white)
+                                .cornerRadius(10)
+                            }
+                            .buttonStyle(PlainButtonStyle())
+                        }
+                    }
+                }
+                
                 Spacer()
                 
                 Divider()
@@ -123,6 +146,18 @@ struct InitiativeDetailView: View {
                             .cornerRadius(10)
                     }
                     .buttonStyle(PlainButtonStyle())
+                    
+                    Button(action: {
+                                           showingAddLinkModal = true
+                                       }) {
+                                           Text("Add Link")
+                                               .frame(maxWidth: .infinity)
+                                               .padding()
+                                               .background(Color.blue.opacity(0.4))
+                                               .foregroundColor(.white)
+                                               .cornerRadius(10)
+                                       }
+                                       .buttonStyle(PlainButtonStyle())
                     
                     Button(action: {
                         showingDeleteConfirmation = true
@@ -163,6 +198,12 @@ struct InitiativeDetailView: View {
             .sheet(item: $selectedNote) { note in
                 NoteView(initiative: initiative, note: note)
             }
+            .sheet(isPresented: $showingAddLinkModal) {
+                            LinkView(initiative: initiative)
+                        }
+                        .sheet(item: $selectedLink) { link in
+                            LinkView(initiative: initiative, link: link)
+                        }
         }
         
         .alert(isPresented: $showingDeleteConfirmation) {

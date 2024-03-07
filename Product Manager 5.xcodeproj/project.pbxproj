@@ -16,6 +16,7 @@
 		437BD1F02B97EF4D00F7F7CB /* TaskAndNoteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 437BD1EF2B97EF4D00F7F7CB /* TaskAndNoteView.swift */; };
 		43C9C8AD2B96C6AF00D323B1 /* InitiativeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43C9C8AC2B96C6AF00D323B1 /* InitiativeView.swift */; };
 		43C9C8AF2B96C76E00D323B1 /* Utility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43C9C8AE2B96C76E00D323B1 /* Utility.swift */; };
+		43D7181E2B9A662C0098C298 /* LinkView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43D7181D2B9A662C0098C298 /* LinkView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -30,6 +31,7 @@
 		437BD1EF2B97EF4D00F7F7CB /* TaskAndNoteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskAndNoteView.swift; sourceTree = "<group>"; };
 		43C9C8AC2B96C6AF00D323B1 /* InitiativeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InitiativeView.swift; sourceTree = "<group>"; };
 		43C9C8AE2B96C76E00D323B1 /* Utility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utility.swift; sourceTree = "<group>"; };
+		43D7181D2B9A662C0098C298 /* LinkView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinkView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -64,6 +66,7 @@
 			children = (
 				431CE2742B96574D0002D1A1 /* ContentView.swift */,
 				431CE2832B9657980002D1A1 /* InitiativeDetailView.swift */,
+				43D7181D2B9A662C0098C298 /* LinkView.swift */,
 				437BD1EF2B97EF4D00F7F7CB /* TaskAndNoteView.swift */,
 				43C9C8AC2B96C6AF00D323B1 /* InitiativeView.swift */,
 				43C9C8B02B96D44500D323B1 /* Data */,
@@ -164,6 +167,7 @@
 			files = (
 				431CE2752B96574D0002D1A1 /* ContentView.swift in Sources */,
 				437BD1F02B97EF4D00F7F7CB /* TaskAndNoteView.swift in Sources */,
+				43D7181E2B9A662C0098C298 /* LinkView.swift in Sources */,
 				431CE2842B9657980002D1A1 /* InitiativeDetailView.swift in Sources */,
 				43C9C8AF2B96C76E00D323B1 /* Utility.swift in Sources */,
 				431CE2772B96574D0002D1A1 /* Model.swift in Sources */,
