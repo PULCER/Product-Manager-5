@@ -33,10 +33,10 @@ struct TaskView: View {
                 .overlay(RoundedRectangle(cornerRadius: 5).stroke(Color.gray, lineWidth: 1))
             
             HStack{
-                           Toggle("Urgent", isOn: $isUrgent)
-                           Toggle("Complete", isOn: $isCompleted)
+                Toggle("Urgent", isOn: $isUrgent)
+                Toggle("Complete", isOn: $isCompleted)
                 Spacer()
-                       }
+            }
             
             HStack{
                 if task != nil {
@@ -76,14 +76,14 @@ struct TaskView: View {
                 Spacer()
                 
                 Button(action: {
-                              if let task = task {
-                                  task.title = taskTitle
-                                  task.content = taskContent
-                                  task.isUrgent = isUrgent
-                                  task.isCompleted = isCompleted
-                                  try? modelContext.save()
-                              }
-                              dismiss()
+                    if let task = task {
+                        task.title = taskTitle
+                        task.content = taskContent
+                        task.isUrgent = isUrgent
+                        task.isCompleted = isCompleted
+                        try? modelContext.save()
+                    }
+                    dismiss()
                 }) {
                     Text("Go Back")
                         .frame(maxWidth: .infinity)

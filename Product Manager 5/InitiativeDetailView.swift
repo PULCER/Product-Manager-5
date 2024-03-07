@@ -84,7 +84,6 @@ struct InitiativeDetailView: View {
                                         Text(task.title)
                                             .lineLimit(2)
                                     }
-                                    // Change background color based on completion status
                                     .padding(10)
                                     .background(task.isCompleted ? Color.gray : (task.isUrgent ? Color.red.opacity(0.4) : Color.blue.opacity(0.4)))
                                     .foregroundColor(.white)
