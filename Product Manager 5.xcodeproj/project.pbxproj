@@ -13,7 +13,8 @@
 		431CE2792B96574E0002D1A1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 431CE2782B96574E0002D1A1 /* Assets.xcassets */; };
 		431CE27C2B96574E0002D1A1 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 431CE27B2B96574E0002D1A1 /* Preview Assets.xcassets */; };
 		431CE2842B9657980002D1A1 /* InitiativeDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 431CE2832B9657980002D1A1 /* InitiativeDetailView.swift */; };
-		437BD1F02B97EF4D00F7F7CB /* TaskAndNoteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 437BD1EF2B97EF4D00F7F7CB /* TaskAndNoteView.swift */; };
+		43227B0D2B9AB4210065E81C /* NoteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43227B0C2B9AB4210065E81C /* NoteView.swift */; };
+		437BD1F02B97EF4D00F7F7CB /* TaskView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 437BD1EF2B97EF4D00F7F7CB /* TaskView.swift */; };
 		43C9C8AD2B96C6AF00D323B1 /* InitiativeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43C9C8AC2B96C6AF00D323B1 /* InitiativeView.swift */; };
 		43C9C8AF2B96C76E00D323B1 /* Utility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43C9C8AE2B96C76E00D323B1 /* Utility.swift */; };
 		43D7181E2B9A662C0098C298 /* LinkView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43D7181D2B9A662C0098C298 /* LinkView.swift */; };
@@ -28,7 +29,8 @@
 		431CE27B2B96574E0002D1A1 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		431CE27D2B96574E0002D1A1 /* Product_Manager_5.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Product_Manager_5.entitlements; sourceTree = "<group>"; };
 		431CE2832B9657980002D1A1 /* InitiativeDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InitiativeDetailView.swift; sourceTree = "<group>"; };
-		437BD1EF2B97EF4D00F7F7CB /* TaskAndNoteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskAndNoteView.swift; sourceTree = "<group>"; };
+		43227B0C2B9AB4210065E81C /* NoteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteView.swift; sourceTree = "<group>"; };
+		437BD1EF2B97EF4D00F7F7CB /* TaskView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskView.swift; sourceTree = "<group>"; };
 		43C9C8AC2B96C6AF00D323B1 /* InitiativeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InitiativeView.swift; sourceTree = "<group>"; };
 		43C9C8AE2B96C76E00D323B1 /* Utility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utility.swift; sourceTree = "<group>"; };
 		43D7181D2B9A662C0098C298 /* LinkView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinkView.swift; sourceTree = "<group>"; };
@@ -66,9 +68,8 @@
 			children = (
 				431CE2742B96574D0002D1A1 /* ContentView.swift */,
 				431CE2832B9657980002D1A1 /* InitiativeDetailView.swift */,
-				43D7181D2B9A662C0098C298 /* LinkView.swift */,
-				437BD1EF2B97EF4D00F7F7CB /* TaskAndNoteView.swift */,
 				43C9C8AC2B96C6AF00D323B1 /* InitiativeView.swift */,
+				43227B0E2B9AB56B0065E81C /* TaskNoteLinkViews */,
 				43C9C8B02B96D44500D323B1 /* Data */,
 				431CE2782B96574E0002D1A1 /* Assets.xcassets */,
 				431CE27D2B96574E0002D1A1 /* Product_Manager_5.entitlements */,
@@ -83,6 +84,16 @@
 				431CE27B2B96574E0002D1A1 /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		43227B0E2B9AB56B0065E81C /* TaskNoteLinkViews */ = {
+			isa = PBXGroup;
+			children = (
+				437BD1EF2B97EF4D00F7F7CB /* TaskView.swift */,
+				43227B0C2B9AB4210065E81C /* NoteView.swift */,
+				43D7181D2B9A662C0098C298 /* LinkView.swift */,
+			);
+			path = TaskNoteLinkViews;
 			sourceTree = "<group>";
 		};
 		43C9C8B02B96D44500D323B1 /* Data */ = {
@@ -166,13 +177,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				431CE2752B96574D0002D1A1 /* ContentView.swift in Sources */,
-				437BD1F02B97EF4D00F7F7CB /* TaskAndNoteView.swift in Sources */,
+				437BD1F02B97EF4D00F7F7CB /* TaskView.swift in Sources */,
 				43D7181E2B9A662C0098C298 /* LinkView.swift in Sources */,
 				431CE2842B9657980002D1A1 /* InitiativeDetailView.swift in Sources */,
 				43C9C8AF2B96C76E00D323B1 /* Utility.swift in Sources */,
 				431CE2772B96574D0002D1A1 /* Model.swift in Sources */,
 				431CE2732B96574D0002D1A1 /* Product_Manager_5App.swift in Sources */,
 				43C9C8AD2B96C6AF00D323B1 /* InitiativeView.swift in Sources */,
+				43227B0D2B9AB4210065E81C /* NoteView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -307,7 +319,7 @@
 				CODE_SIGN_ENTITLEMENTS = "Product Manager 5/Product_Manager_5.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 5;
+				CURRENT_PROJECT_VERSION = 6;
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_ASSET_PATHS = "\"Product Manager 5/Preview Content\"";
 				DEVELOPMENT_TEAM = 5BB8VQ988Q;
@@ -322,7 +334,7 @@
 					"@executable_path/../Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 14.0;
-				MARKETING_VERSION = 1.02;
+				MARKETING_VERSION = 1.03;
 				PRODUCT_BUNDLE_IDENTIFIER = "pulcer.net.Product-Manager-5";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -338,7 +350,7 @@
 				CODE_SIGN_ENTITLEMENTS = "Product Manager 5/Product_Manager_5.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 5;
+				CURRENT_PROJECT_VERSION = 6;
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_ASSET_PATHS = "\"Product Manager 5/Preview Content\"";
 				DEVELOPMENT_TEAM = 5BB8VQ988Q;
@@ -353,7 +365,7 @@
 					"@executable_path/../Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 14.0;
-				MARKETING_VERSION = 1.02;
+				MARKETING_VERSION = 1.03;
 				PRODUCT_BUNDLE_IDENTIFIER = "pulcer.net.Product-Manager-5";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
