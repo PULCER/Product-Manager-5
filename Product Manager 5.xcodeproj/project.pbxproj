@@ -319,7 +319,7 @@
 				CODE_SIGN_ENTITLEMENTS = "Product Manager 5/Product_Manager_5.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 6;
+				CURRENT_PROJECT_VERSION = 7;
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_ASSET_PATHS = "\"Product Manager 5/Preview Content\"";
 				DEVELOPMENT_TEAM = 5BB8VQ988Q;
@@ -350,7 +350,7 @@
 				CODE_SIGN_ENTITLEMENTS = "Product Manager 5/Product_Manager_5.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 6;
+				CURRENT_PROJECT_VERSION = 7;
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_ASSET_PATHS = "\"Product Manager 5/Preview Content\"";
 				DEVELOPMENT_TEAM = 5BB8VQ988Q;
