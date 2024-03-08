@@ -36,6 +36,7 @@ struct LinkView: View {
                         dismiss()
                     }) {
                         Text("Delete")
+                            .font(.title2)
                             .frame(maxWidth: .infinity)
                             .padding()
                             .background(Color.red.opacity(0.4))
@@ -53,6 +54,7 @@ struct LinkView: View {
                         dismiss()
                     }) {
                         Text("Back")
+                            .font(.title2)
                             .frame(maxWidth: .infinity)
                             .padding()
                             .background(Color.blue.opacity(0.4))
@@ -72,6 +74,7 @@ struct LinkView: View {
                     dismiss()
                 }) {
                     Text("Save")
+                        .font(.title2)
                         .frame(maxWidth: .infinity)
                         .padding()
                         .background(Color.blue.opacity(0.4))
@@ -87,6 +90,7 @@ struct LinkView: View {
                     dismiss()
                 }) {
                     Text("Discard")
+                        .font(.title2)
                         .frame(maxWidth: .infinity)
                         .padding()
                         .background(Color.teal.opacity(0.4))
