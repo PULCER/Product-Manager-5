@@ -119,8 +119,12 @@ struct ContentView: View {
                             Text("Medium").tag(Priority.medium)
                             Text("High").tag(Priority.high)
                             Text("Highest").tag(Priority.highest)
-                        }.pickerStyle(SegmentedPickerStyle())
+                        }
+                        .pickerStyle(SegmentedPickerStyle())
+                        .font(.headline)
+
                         Toggle("Show Completed", isOn: $showCompleted)
+                            .font(.headline) 
                     }
                     
                     Button(action: {

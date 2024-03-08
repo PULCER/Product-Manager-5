@@ -37,9 +37,9 @@ struct InitiativeDetailView: View {
                 .overlay(RoundedRectangle(cornerRadius: 5).stroke(Color.gray, lineWidth: 1))
                 .padding(.bottom)
             
-            Text("Notes:").font(.headline)
-            HStack {
-                if let notes = initiative.notes {
+            if let notes = initiative.notes, !notes.isEmpty {
+                Text("Notes:").font(.headline)
+                HStack {
                     ForEach(notes) { note in
                         Button(action: {
                             selectedNote = note
@@ -50,6 +50,7 @@ struct InitiativeDetailView: View {
                             }
                             .padding(10)
                             .background(Color.blue.opacity(0.4))
+                            .font(.title2)
                             .foregroundColor(.white)
                             .cornerRadius(10)
                         }
@@ -58,32 +59,31 @@ struct InitiativeDetailView: View {
                 }
             }
             
-            Text("Tasks:").font(.headline)
-      
+            if let tasks = initiative.tasks, !tasks.isEmpty {
+                Text("Tasks:").font(.headline)
                 HStack {
-                    if let tasks = initiative.tasks {
-                        ForEach(tasks) { task in
-                            Button(action: {
-                                selectedTask = task
-                            }) {
-                                VStack {
-                                    Text(task.title)
-                                        .lineLimit(2)
-                                }
-                                .padding(10)
-                                .background(task.isCompleted ? Color.gray : (task.isUrgent ? Color.red.opacity(0.4) : Color.blue.opacity(0.4)))
-                                .foregroundColor(.white)
-                                .cornerRadius(10)
+                    ForEach(tasks) { task in
+                        Button(action: {
+                            selectedTask = task
+                        }) {
+                            VStack {
+                                Text(task.title)
+                                    .lineLimit(2)
                             }
-                            .buttonStyle(PlainButtonStyle())
+                            .padding(10)
+                            .background(task.isCompleted ? Color.gray : (task.isUrgent ? Color.red.opacity(0.4) : Color.blue.opacity(0.4)))
+                            .font(.title2)
+                            .foregroundColor(.white)
+                            .cornerRadius(10)
                         }
+                        .buttonStyle(PlainButtonStyle())
                     }
                 }
+            }
             
-            
-            Text("Links:").font(.headline)
-            HStack {
-                if let links = initiative.links {
+            if let links = initiative.links, !links.isEmpty {
+                Text("Links:").font(.headline)
+                HStack {
                     ForEach(links) { link in
                         Button(action: {
                             selectedLink = link
@@ -93,6 +93,7 @@ struct InitiativeDetailView: View {
                                     .lineLimit(2)
                             }
                             .padding(10)
+                            .font(.title2)
                             .background(Color.blue.opacity(0.4))
                             .foregroundColor(.white)
                             .cornerRadius(10)
@@ -107,7 +108,6 @@ struct InitiativeDetailView: View {
                     }
                 }
             }
-            
             
             Spacer()
             
@@ -133,6 +133,7 @@ struct InitiativeDetailView: View {
                     Text("Add Task")
                         .frame(maxWidth: .infinity)
                         .padding()
+                        .font(.title2)
                         .background(Color.blue.opacity(0.4))
                         .foregroundColor(.white)
                         .cornerRadius(10)
@@ -145,6 +146,7 @@ struct InitiativeDetailView: View {
                     Text("Add Note")
                         .frame(maxWidth: .infinity)
                         .padding()
+                        .font(.title2)
                         .background(Color.blue.opacity(0.4))
                         .foregroundColor(.white)
                         .cornerRadius(10)
@@ -157,6 +159,7 @@ struct InitiativeDetailView: View {
                     Text("Add Link")
                         .frame(maxWidth: .infinity)
                         .padding()
+                        .font(.title2)
                         .background(Color.blue.opacity(0.4))
                         .foregroundColor(.white)
                         .cornerRadius(10)
@@ -169,6 +172,7 @@ struct InitiativeDetailView: View {
                     Text("Delete Initiative")
                         .frame(maxWidth: .infinity)
                         .padding()
+                        .font(.title2)
                         .background(Color.red.opacity(0.4))
                         .foregroundColor(.white)
                         .cornerRadius(10)
@@ -183,6 +187,7 @@ struct InitiativeDetailView: View {
                     Text("Go Back")
                         .frame(maxWidth: .infinity)
                         .padding()
+                        .font(.title2)
                         .background(Color.teal.opacity(0.4))
                         .foregroundColor(.white)
                         .cornerRadius(10)
@@ -234,6 +239,5 @@ struct InitiativeDetailView: View {
         try? modelContext.save()
         self.selectedInitiative = nil
     }
-    
 }
 
