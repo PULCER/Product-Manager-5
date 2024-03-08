@@ -31,6 +31,12 @@ struct ContentView: View {
                                 Text("Highest")
                                     .font(.title)
                                 Spacer()
+                                Toggle(isOn: $showCompleted) {
+                                    Text(showCompleted ? "Complete" : "Incomplete")
+                                        .font(.subheadline)
+                                        .foregroundColor(.secondary)
+                                }
+                                .toggleStyle(SwitchToggleStyle(tint: .blue))
                             }
                             ScrollView(.horizontal) {
                                 HStack {
@@ -122,9 +128,6 @@ struct ContentView: View {
                         }
                         .pickerStyle(SegmentedPickerStyle())
                         .font(.headline)
-
-                        Toggle("Show Completed", isOn: $showCompleted)
-                            .font(.headline) 
                     }
                     
                     Button(action: {
