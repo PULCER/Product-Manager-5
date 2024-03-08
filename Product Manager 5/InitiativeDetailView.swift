@@ -216,8 +216,6 @@ struct InitiativeDetailView: View {
         .sheet(item: $selectedLink) { link in
             LinkView(initiative: initiative, link: link)
         }
-        
-        
         .alert(isPresented: $showingDeleteConfirmation) {
             Alert(
                 title: Text("Confirm Deletion"),
