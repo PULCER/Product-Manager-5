@@ -59,7 +59,7 @@ struct InitiativeDetailView: View {
             }
             
             Text("Tasks:").font(.headline)
-            ScrollView {
+      
                 HStack {
                     if let tasks = initiative.tasks {
                         ForEach(tasks) { task in
@@ -79,7 +79,7 @@ struct InitiativeDetailView: View {
                         }
                     }
                 }
-            }
+            
             
             Text("Links:").font(.headline)
             HStack {
