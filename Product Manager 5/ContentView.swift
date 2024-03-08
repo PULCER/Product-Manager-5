@@ -24,92 +24,85 @@ struct ContentView: View {
             }
             
             else {
-                VStack{
-                    Text("Highest")
-                        .font(.title)
-                    if highestPriorityInitiatives.count > 1 {
-                        ScrollView(.horizontal) {
+                VStack {
+                    GeometryReader { geometry in
+                        VStack {
                             HStack {
-                                ForEach(highestPriorityInitiatives) { initiative in
-                                    Button(action: {
-                                        self.selectedInitiative = initiative
-                                    }) {
-                                        InitiativeView(initiative: initiative)
-                                    }.buttonStyle(PlainButtonStyle())
+                                Text("Highest")
+                                    .font(.title)
+                                Spacer()
+                            }
+                            ScrollView(.horizontal) {
+                                HStack {
+                                    ForEach(highestPriorityInitiatives) { initiative in
+                                        Button(action: {
+                                            self.selectedInitiative = initiative
+                                        }) {
+                                            InitiativeView(initiative: initiative)
+                                        }
+                                        .buttonStyle(PlainButtonStyle())
+                                    }
                                 }
                             }
-                        }
-                    } else {
-                        ForEach(highestPriorityInitiatives) { initiative in
-                            Button(action: {
-                                self.selectedInitiative = initiative
-                            }) {
-                                InitiativeView(initiative: initiative)
-                            }.buttonStyle(PlainButtonStyle())
-                        }
-                    }
-                    
-                    Divider().padding()
-                    
-                    VStack{
-                        GeometryReader { geometry in
-                            HStack{
-                                
-                                VStack {
-                                    Text("High")
-                                        .font(.title)
-                                    ScrollView {
-                                        ForEach(highPriorityInitiatives) { initiative in
-                                            Button(action: {
-                                                self.selectedInitiative = initiative
-                                            }) {
-                                                InitiativeView(initiative: initiative)
-                                            }
-                                            .frame(maxWidth: .infinity, alignment: .leading)
-                                            .buttonStyle(PlainButtonStyle())
+                            
+                            Divider().padding()
+                            
+                            HStack {
+                                Text("High")
+                                    .font(.title)
+                                Spacer()
+                            }
+                            ScrollView(.horizontal) {
+                                HStack {
+                                    ForEach(highPriorityInitiatives) { initiative in
+                                        Button(action: {
+                                            self.selectedInitiative = initiative
+                                        }) {
+                                            InitiativeView(initiative: initiative)
                                         }
+                                        .buttonStyle(PlainButtonStyle())
                                     }
-                                    Spacer()
-                                }.frame(width: geometry.size.width / 3, alignment: .leading)
-                                
-                                Divider()
-                                
-                                VStack {
-                                    Text("Medium")
-                                        .font(.title)
-                                    ScrollView {
-                                        ForEach(mediumPriorityInitiatives) { initiative in
-                                            Button(action: {
-                                                self.selectedInitiative = initiative
-                                            }) {
-                                                InitiativeView(initiative: initiative)
-                                            }
-                                            .frame(maxWidth: .infinity, alignment: .leading)
-                                            .buttonStyle(PlainButtonStyle())
+                                }
+                            }
+                            
+                            Divider().padding()
+                            
+                            HStack {
+                                Text("Medium")
+                                    .font(.title)
+                                Spacer()
+                            }
+                            ScrollView(.horizontal) {
+                                HStack {
+                                    ForEach(mediumPriorityInitiatives) { initiative in
+                                        Button(action: {
+                                            self.selectedInitiative = initiative
+                                        }) {
+                                            InitiativeView(initiative: initiative)
                                         }
+                                        .buttonStyle(PlainButtonStyle())
                                     }
-                                    Spacer()
-                                }.frame(width: geometry.size.width / 3, alignment: .leading)
-                                
-                                Divider()
-                                
-                                VStack {
-                                    Text("Low")
-                                        .font(.title)
-                                    ScrollView {
-                                        ForEach(lowPriorityInitiatives) { initiative in
-                                            Button(action: {
-                                                self.selectedInitiative = initiative
-                                            }) {
-                                                InitiativeView(initiative: initiative)
-                                            }
-                                            .frame(maxWidth: .infinity, alignment: .leading)
-                                            .buttonStyle(PlainButtonStyle())
+                                }
+                            }
+                            
+                            Divider().padding()
+                            
+                            HStack {
+                                Text("Low")
+                                    .font(.title)
+                                Spacer()
+                            }
+                            ScrollView(.horizontal) {
+                                HStack {
+                                    ForEach(lowPriorityInitiatives) { initiative in
+                                        Button(action: {
+                                            self.selectedInitiative = initiative
+                                        }) {
+                                            InitiativeView(initiative: initiative)
                                         }
+                                        .buttonStyle(PlainButtonStyle())
                                     }
-                                    Spacer()
-                                    
-                                }.frame(width: geometry.size.width / 3, alignment: .leading)
+                                }
                             }
                         }
                     }
@@ -120,7 +113,7 @@ struct ContentView: View {
                 VStack {
                     TextField("Title", text: $title)
                     
-                    HStack{
+                    HStack {
                         Picker("Priority", selection: $priority) {
                             Text("Low").tag(Priority.low)
                             Text("Medium").tag(Priority.medium)

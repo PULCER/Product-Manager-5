@@ -9,7 +9,7 @@ struct InitiativeView: View {
         let uncompletedTasksCount = initiative.tasks?.filter { !$0.isCompleted }.count ?? 0
         
         VStack(alignment: .leading) {
-            Text(initiative.title).font(.title3)
+            Text(initiative.title).font(.title2)
             
             HStack{
                 if let notes = initiative.notes, !notes.isEmpty {
@@ -19,7 +19,7 @@ struct InitiativeView: View {
                 Text("Tasks: \(uncompletedTasksCount)").font(.headline)
             }
         }
-        .padding(10)
+        .padding(8)
         .background(containsUrgentTask ? Color.red.opacity(0.8) : Color.blue.opacity(0.4))
         .cornerRadius(8)
     }

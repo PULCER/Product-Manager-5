@@ -15,7 +15,7 @@ struct InitiativeDetailView: View {
     @State private var selectedNote: InitiativeNote?
     @State private var selectedTask: InitiativeTask?
     @State private var showingAddLinkModal = false
-      @State private var selectedLink: InitiativeLink?
+    @State private var selectedLink: InitiativeLink?
     
     init(initiative: Initiative, selectedInitiative: Binding<Initiative?>) {
         self.initiative = initiative
@@ -27,46 +27,51 @@ struct InitiativeDetailView: View {
     }
     
     var body: some View {
-        ScrollView {
-            VStack(alignment: .leading) {
-                TextField("Title", text: $editedTitle)
-                    .font(.headline)
-                    .textFieldStyle(RoundedBorderTextFieldStyle())
-                
-                TextEditor(text: $editedSummary)
-                    .frame(minHeight: CGFloat(5 * 20))
-                    .overlay(RoundedRectangle(cornerRadius: 5).stroke(Color.gray, lineWidth: 1))
-                    .padding(.bottom)
-                
-                Picker("Priority", selection: $selectedPriority) {
-                    Text("Low").tag(Priority.low)
-                    Text("Medium").tag(Priority.medium)
-                    Text("High").tag(Priority.high)
-                    Text("Highest").tag(Priority.highest)
+        VStack(alignment: .leading) {
+            TextField("Title", text: $editedTitle)
+                .font(.headline)
+                .textFieldStyle(RoundedBorderTextFieldStyle())
+            
+            TextEditor(text: $editedSummary)
+                .frame(minHeight: CGFloat(5 * 20))
+                .overlay(RoundedRectangle(cornerRadius: 5).stroke(Color.gray, lineWidth: 1))
+                .padding(.bottom)
+            
+            Text("Notes:").font(.headline)
+            HStack {
+                if let notes = initiative.notes {
+                    ForEach(notes) { note in
+                        Button(action: {
+                            selectedNote = note
+                        }) {
+                            VStack {
+                                Text(note.title)
+                                    .lineLimit(2)
+                            }
+                            .padding(10)
+                            .background(Color.blue.opacity(0.4))
+                            .foregroundColor(.white)
+                            .cornerRadius(10)
+                        }
+                        .buttonStyle(PlainButtonStyle())
+                    }
                 }
-                .pickerStyle(SegmentedPickerStyle())
-                
-                Divider()
-                
-                Picker("Status", selection: $selectedStatus) {
-                    Text("Incomplete").tag(false)
-                    Text("Complete").tag(true)
-                }
-                .pickerStyle(SegmentedPickerStyle())
-                
-                Text("Notes:").font(.headline)
+            }
+            
+            Text("Tasks:").font(.headline)
+            ScrollView {
                 HStack {
-                    if let notes = initiative.notes {
-                        ForEach(notes) { note in
+                    if let tasks = initiative.tasks {
+                        ForEach(tasks) { task in
                             Button(action: {
-                                selectedNote = note
+                                selectedTask = task
                             }) {
                                 VStack {
-                                    Text(note.title)
+                                    Text(task.title)
                                         .lineLimit(2)
                                 }
                                 .padding(10)
-                                .background(Color.blue.opacity(0.4))
+                                .background(task.isCompleted ? Color.gray : (task.isUrgent ? Color.red.opacity(0.4) : Color.blue.opacity(0.4)))
                                 .foregroundColor(.white)
                                 .cornerRadius(10)
                             }
@@ -74,144 +79,136 @@ struct InitiativeDetailView: View {
                         }
                     }
                 }
-                
-                Text("Tasks:").font(.headline)
-                ScrollView {
-                    HStack {
-                        if let tasks = initiative.tasks {
-                            ForEach(tasks) { task in
-                                Button(action: {
-                                    selectedTask = task
-                                }) {
-                                    VStack {
-                                        Text(task.title)
-                                            .lineLimit(2)
-                                    }
-                                    .padding(10)
-                                    .background(task.isCompleted ? Color.gray : (task.isUrgent ? Color.red.opacity(0.4) : Color.blue.opacity(0.4)))
-                                    .foregroundColor(.white)
-                                    .cornerRadius(10)
-                                }
-                                .buttonStyle(PlainButtonStyle())
+            }
+            
+            Text("Links:").font(.headline)
+            HStack {
+                if let links = initiative.links {
+                    ForEach(links) { link in
+                        Button(action: {
+                            selectedLink = link
+                        }) {
+                            VStack {
+                                Text(link.title)
+                                    .lineLimit(2)
                             }
-                        }
-                    }
-                }
-                
-                Text("Links:").font(.headline)
-                HStack {
-                    if let links = initiative.links {
-                        ForEach(links) { link in
-                            Button(action: {
-                                selectedLink = link
-                            }) {
-                                VStack {
-                                    Text(link.title)
-                                        .lineLimit(2)
-                                }
-                                .padding(10)
-                                .background(Color.blue.opacity(0.4))
-                                .foregroundColor(.white)
-                                .cornerRadius(10)
-                            }
-                            .buttonStyle(PlainButtonStyle())
-                            
-                            Link(destination: link.url) {
-                                Image(systemName: "link")
-                                    .foregroundColor(.blue)
-                            }
-                            .buttonStyle(PlainButtonStyle())
-                        }
-                    }
-                }
-                
-                Spacer()
-                
-                Divider()
-                
-                HStack {
-                    Button(action: {
-                        showingAddTaskModal = true
-                    }) {
-                        Text("Add Task")
-                            .frame(maxWidth: .infinity)
-                            .padding()
+                            .padding(10)
                             .background(Color.blue.opacity(0.4))
                             .foregroundColor(.white)
                             .cornerRadius(10)
+                        }
+                        .buttonStyle(PlainButtonStyle())
+                        
+                        Link(destination: link.url) {
+                            Image(systemName: "link")
+                                .foregroundColor(.blue)
+                        }
+                        .buttonStyle(PlainButtonStyle())
                     }
-                    .buttonStyle(PlainButtonStyle())
-                    
-                    Button(action: {
-                        showingAddNoteModal = true
-                    }) {
-                        Text("Add Note")
-                            .frame(maxWidth: .infinity)
-                            .padding()
-                            .background(Color.blue.opacity(0.4))
-                            .foregroundColor(.white)
-                            .cornerRadius(10)
-                    }
-                    .buttonStyle(PlainButtonStyle())
-                    
-                    Button(action: {
-                                           showingAddLinkModal = true
-                                       }) {
-                                           Text("Add Link")
-                                               .frame(maxWidth: .infinity)
-                                               .padding()
-                                               .background(Color.blue.opacity(0.4))
-                                               .foregroundColor(.white)
-                                               .cornerRadius(10)
-                                       }
-                                       .buttonStyle(PlainButtonStyle())
-                    
-                    Button(action: {
-                        showingDeleteConfirmation = true
-                    }) {
-                        Text("Delete Initiative")
-                            .frame(maxWidth: .infinity)
-                            .padding()
-                            .background(Color.red.opacity(0.4))
-                            .foregroundColor(.white)
-                            .cornerRadius(10)
-                    }
-                    .buttonStyle(PlainButtonStyle())
-                    
-                    Button(action: {
-                        updateInitiativeDetails()
-                        try? modelContext.save()
-                        self.selectedInitiative = nil
-                    }) {
-                        Text("Go Back")
-                            .frame(maxWidth: .infinity)
-                            .padding()
-                            .background(Color.teal.opacity(0.4))
-                            .foregroundColor(.white)
-                            .cornerRadius(10)
-                    }
-                    .buttonStyle(PlainButtonStyle())
                 }
             }
-            .sheet(isPresented: $showingAddTaskModal) {
-                TaskView(initiative: initiative)
+            
+            
+            Spacer()
+            
+            Picker("Priority", selection: $selectedPriority) {
+                Text("Low").tag(Priority.low)
+                Text("Medium").tag(Priority.medium)
+                Text("High").tag(Priority.high)
+                Text("Highest").tag(Priority.highest)
             }
-            .sheet(item: $selectedTask) { task in
-                TaskView(initiative: initiative, task: task)
+            .pickerStyle(SegmentedPickerStyle())
+            
+            
+            Picker("Status", selection: $selectedStatus) {
+                Text("Incomplete").tag(false)
+                Text("Complete").tag(true)
             }
-            .sheet(isPresented: $showingAddNoteModal) {
-                NoteView(initiative: initiative)
+            .pickerStyle(SegmentedPickerStyle())
+            
+            HStack {
+                Button(action: {
+                    showingAddTaskModal = true
+                }) {
+                    Text("Add Task")
+                        .frame(maxWidth: .infinity)
+                        .padding()
+                        .background(Color.blue.opacity(0.4))
+                        .foregroundColor(.white)
+                        .cornerRadius(10)
+                }
+                .buttonStyle(PlainButtonStyle())
+                
+                Button(action: {
+                    showingAddNoteModal = true
+                }) {
+                    Text("Add Note")
+                        .frame(maxWidth: .infinity)
+                        .padding()
+                        .background(Color.blue.opacity(0.4))
+                        .foregroundColor(.white)
+                        .cornerRadius(10)
+                }
+                .buttonStyle(PlainButtonStyle())
+                
+                Button(action: {
+                    showingAddLinkModal = true
+                }) {
+                    Text("Add Link")
+                        .frame(maxWidth: .infinity)
+                        .padding()
+                        .background(Color.blue.opacity(0.4))
+                        .foregroundColor(.white)
+                        .cornerRadius(10)
+                }
+                .buttonStyle(PlainButtonStyle())
+                
+                Button(action: {
+                    showingDeleteConfirmation = true
+                }) {
+                    Text("Delete Initiative")
+                        .frame(maxWidth: .infinity)
+                        .padding()
+                        .background(Color.red.opacity(0.4))
+                        .foregroundColor(.white)
+                        .cornerRadius(10)
+                }
+                .buttonStyle(PlainButtonStyle())
+                
+                Button(action: {
+                    updateInitiativeDetails()
+                    try? modelContext.save()
+                    self.selectedInitiative = nil
+                }) {
+                    Text("Go Back")
+                        .frame(maxWidth: .infinity)
+                        .padding()
+                        .background(Color.teal.opacity(0.4))
+                        .foregroundColor(.white)
+                        .cornerRadius(10)
+                }
+                .buttonStyle(PlainButtonStyle())
             }
-            .sheet(item: $selectedNote) { note in
-                NoteView(initiative: initiative, note: note)
-            }
-            .sheet(isPresented: $showingAddLinkModal) {
-                            LinkView(initiative: initiative)
-                        }
-                        .sheet(item: $selectedLink) { link in
-                            LinkView(initiative: initiative, link: link)
-                        }
         }
+        .sheet(isPresented: $showingAddTaskModal) {
+            TaskView(initiative: initiative)
+        }
+        .sheet(item: $selectedTask) { task in
+            TaskView(initiative: initiative, task: task)
+        }
+        .sheet(isPresented: $showingAddNoteModal) {
+            NoteView(initiative: initiative)
+        }
+        .sheet(item: $selectedNote) { note in
+            NoteView(initiative: initiative, note: note)
+        }
+        .sheet(isPresented: $showingAddLinkModal) {
+            LinkView(initiative: initiative)
+        }
+        .sheet(item: $selectedLink) { link in
+            LinkView(initiative: initiative, link: link)
+        }
+        
         
         .alert(isPresented: $showingDeleteConfirmation) {
             Alert(
@@ -228,7 +225,7 @@ struct InitiativeDetailView: View {
     private func updateInitiativeDetails() {
         initiative.title = editedTitle
         initiative.summary = editedSummary
-        initiative.priority = selectedPriority 
+        initiative.priority = selectedPriority
         initiative.isCompleted = selectedStatus
     }
     
