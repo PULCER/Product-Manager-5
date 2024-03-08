@@ -72,7 +72,7 @@ struct LinkView: View {
                     }
                     dismiss()
                 }) {
-                    Text("Go Back")
+                    Text("Back")
                         .frame(maxWidth: .infinity)
                         .padding()
                         .background(Color.teal.opacity(0.4))

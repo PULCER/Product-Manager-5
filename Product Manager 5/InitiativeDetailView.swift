@@ -171,7 +171,7 @@ struct InitiativeDetailView: View {
                 Button(action: {
                     showingDeleteConfirmation = true
                 }) {
-                    Text("Delete Initiative")
+                    Text("Delete")
                         .frame(maxWidth: .infinity)
                         .padding()
                         .font(.title2)
@@ -186,7 +186,7 @@ struct InitiativeDetailView: View {
                     try? modelContext.save()
                     self.selectedInitiative = nil
                 }) {
-                    Text("Go Back")
+                    Text("Back")
                         .frame(maxWidth: .infinity)
                         .padding()
                         .font(.title2)
