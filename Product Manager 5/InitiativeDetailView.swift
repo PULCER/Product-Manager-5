@@ -46,27 +46,6 @@ struct InitiativeDetailView: View {
                 .overlay(RoundedRectangle(cornerRadius: 5).stroke(Color.gray, lineWidth: 1))
                 .padding(.bottom)
             
-            if let notes = initiative.notes, !notes.isEmpty {
-                Text("Notes:").font(.headline)
-                HStack {
-                    ForEach(notes) { note in
-                        Button(action: {
-                            selectedNote = note
-                        }) {
-                            VStack {
-                                Text(note.title)
-                                    .lineLimit(2)
-                            }
-                            .padding(10)
-                            .background(Color.blue.opacity(0.4))
-                            .font(.title2)
-                            .foregroundColor(.white)
-                            .cornerRadius(10)
-                        }
-                        .buttonStyle(PlainButtonStyle())
-                    }
-                }
-            }
             
             if let tasks = initiative.tasks, !tasks.isEmpty {
                 Text("Tasks:").font(.headline)
@@ -81,6 +60,28 @@ struct InitiativeDetailView: View {
                             }
                             .padding(10)
                             .background(task.isCompleted ? Color.gray : (task.isUrgent ? Color.red.opacity(0.4) : Color.blue.opacity(0.4)))
+                            .font(.title2)
+                            .foregroundColor(.white)
+                            .cornerRadius(10)
+                        }
+                        .buttonStyle(PlainButtonStyle())
+                    }
+                }
+            }
+            
+            if let notes = initiative.notes, !notes.isEmpty {
+                Text("Notes:").font(.headline)
+                HStack {
+                    ForEach(notes) { note in
+                        Button(action: {
+                            selectedNote = note
+                        }) {
+                            VStack {
+                                Text(note.title)
+                                    .lineLimit(2)
+                            }
+                            .padding(10)
+                            .background(Color.blue.opacity(0.4))
                             .font(.title2)
                             .foregroundColor(.white)
                             .cornerRadius(10)
