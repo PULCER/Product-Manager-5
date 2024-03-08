@@ -37,7 +37,7 @@ struct LinkView: View {
                         }
                         dismiss()
                     }) {
-                        Text("Delete Link")
+                        Text("Delete")
                             .frame(maxWidth: .infinity)
                             .padding()
                             .background(Color.red.opacity(0.4))
@@ -45,7 +45,7 @@ struct LinkView: View {
                             .cornerRadius(10)
                     }
                     .buttonStyle(PlainButtonStyle())
-                } else {
+                    
                     Button(action: {
                         if let url = URL(string: linkURL) {
                             let newLink = InitiativeLink(title: linkTitle, url: url)
@@ -54,7 +54,7 @@ struct LinkView: View {
                         }
                         dismiss()
                     }) {
-                        Text("Add Link")
+                        Text("Back")
                             .frame(maxWidth: .infinity)
                             .padding()
                             .background(Color.blue.opacity(0.4))
@@ -64,17 +64,31 @@ struct LinkView: View {
                     .buttonStyle(PlainButtonStyle())
                 }
                 
-                Spacer()
-                
+            else {
                 Button(action: {
-                    if let link = link, let url = URL(string: linkURL) {
-                        link.title = linkTitle
-                        link.url = url
+                    if let url = URL(string: linkURL) {
+                        let newLink = InitiativeLink(title: linkTitle, url: url)
+                        initiative.links?.append(newLink)
                         try? modelContext.save()
                     }
                     dismiss()
                 }) {
-                    Text("Back")
+                    Text("Save")
+                        .frame(maxWidth: .infinity)
+                        .padding()
+                        .background(Color.blue.opacity(0.4))
+                        .foregroundColor(.white)
+                        .cornerRadius(10)
+                }
+                .buttonStyle(PlainButtonStyle())
+                
+                
+                Spacer()
+                
+                Button(action: {
+                    dismiss()
+                }) {
+                    Text("Discard")
                         .frame(maxWidth: .infinity)
                         .padding()
                         .background(Color.teal.opacity(0.4))
@@ -83,6 +97,7 @@ struct LinkView: View {
                 }
                 .buttonStyle(PlainButtonStyle())
             }
+        }
         }
         .padding()
         .frame(width: 300)

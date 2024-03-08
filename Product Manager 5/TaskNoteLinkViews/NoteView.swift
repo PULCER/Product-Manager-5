@@ -38,7 +38,7 @@ struct NoteView: View {
                         }
                         dismiss()
                     }) {
-                        Text("Delete Note")
+                        Text("Delete")
                             .frame(maxWidth: .infinity)
                             .padding()
                             .background(Color.red.opacity(0.4))
@@ -46,6 +46,24 @@ struct NoteView: View {
                             .cornerRadius(10)
                     }
                     .buttonStyle(PlainButtonStyle())
+                    
+                    Button(action: {
+                        if let note = note {
+                            note.title = noteTitle
+                            note.content = noteContent
+                            try? modelContext.save()
+                        }
+                        dismiss()
+                    }) {
+                        Text("Back")
+                            .frame(maxWidth: .infinity)
+                            .padding()
+                            .background(Color.teal.opacity(0.4))
+                            .foregroundColor(.white)
+                            .cornerRadius(10)
+                    }
+                    .buttonStyle(PlainButtonStyle())
+                    
                 } else {
                     Button(action: {
                         let newNote = InitiativeNote(title: noteTitle, content: noteContent)
@@ -53,7 +71,7 @@ struct NoteView: View {
                         try? modelContext.save()
                         dismiss()
                     }) {
-                        Text("Add Note")
+                        Text("Save")
                             .frame(maxWidth: .infinity)
                             .padding()
                             .background(Color.blue.opacity(0.4))
@@ -61,26 +79,22 @@ struct NoteView: View {
                             .cornerRadius(10)
                     }
                     .buttonStyle(PlainButtonStyle())
-                }
-                
-                Spacer()
-                
-                Button(action: {
-                    if let note = note {
-                        note.title = noteTitle
-                        note.content = noteContent
-                        try? modelContext.save()
+                    
+                    
+                    Spacer()
+                    
+                    Button(action: {
+                        dismiss()
+                    }) {
+                        Text("Discard")
+                            .frame(maxWidth: .infinity)
+                            .padding()
+                            .background(Color.teal.opacity(0.4))
+                            .foregroundColor(.white)
+                            .cornerRadius(10)
                     }
-                    dismiss()
-                }) {
-                    Text("Go Back")
-                        .frame(maxWidth: .infinity)
-                        .padding()
-                        .background(Color.teal.opacity(0.4))
-                        .foregroundColor(.white)
-                        .cornerRadius(10)
+                    .buttonStyle(PlainButtonStyle())
                 }
-                .buttonStyle(PlainButtonStyle())
             }
         }
         .padding()
