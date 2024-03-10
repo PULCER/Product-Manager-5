@@ -34,6 +34,7 @@ struct TextualRepresentationView: View {
                     }
                 }) {
                     Text("Copy All to Clipboard")
+                        .frame(maxWidth: .infinity)
                         .padding(5)
                         .background(Color.blue.opacity(0.4))
                         .foregroundColor(.white)
@@ -51,6 +52,7 @@ struct TextualRepresentationView: View {
                     presentationMode.wrappedValue.dismiss()
                 }){
                     Text("Close")
+                        .frame(maxWidth: .infinity)
                         .padding(5)
                         .background(Color.blue.opacity(0.4))
                         .foregroundColor(.white)

@@ -12,6 +12,8 @@ struct ContentView: View {
     @State private var showCompleted: Bool = false
     @State private var showingTextualRepresentation = false
     @State private var textualRepresentation = ""
+    @State private var showAlert = false
+    @State private var titleBorderColor: Color = .clear
     
     var body: some View {
         
@@ -31,13 +33,10 @@ struct ContentView: View {
                     GeometryReader { geometry in
                         VStack {
                             HStack {
+                                
                                 Text("Highest")
                                     .font(.title)
                                 Spacer()
-                                
-                        
-                        
-
                                 
                                 Toggle(isOn: $showCompleted) {
                                     Text(showCompleted ? "Complete" : "Incomplete")
@@ -126,6 +125,7 @@ struct ContentView: View {
                 
                 VStack {
                     TextField("Title", text: $title)
+                        .border(titleBorderColor, width: 2)
                     
                     HStack {
                         Picker("Priority", selection: $priority) {
@@ -139,7 +139,7 @@ struct ContentView: View {
                         
                         Button("Textual Representation") {
                             self.textualRepresentation = initiatives.reduce("") { (result, initiative) -> String in
-                                result + generateTextualRepresentation(for: initiative) + "\n\n"
+                                result + initiative.textualRepresentation() + "\n\n"
                             }
                             self.showingTextualRepresentation = true
                         }
@@ -163,38 +163,30 @@ struct ContentView: View {
                     .buttonStyle(PlainButtonStyle())
                 }
             }
-        } .sheet(isPresented: $showingTextualRepresentation) {
+        }
+        .alert(isPresented: $showAlert) {
+            Alert(title: Text("Error"), message: Text("Please enter a title"), dismissButton: .default(Text("OK")) {
+                titleBorderColor = .clear
+            })
+        }
+        .sheet(isPresented: $showingTextualRepresentation) {
             TextualRepresentationView(text: $textualRepresentation)
+            
         }
     }
     
-    private func generateTextualRepresentation(for initiative: Initiative) -> String {
-            var text = "Title: \(initiative.title)\n"
-            text += "Summary: \(initiative.summary)\n"
-            text += "Priority: \(initiative.priority.rawValue)\n"
-            text += "Status: \(initiative.isCompleted ? "Completed" : "Incomplete")\n"
-            
-            if let tasks = initiative.tasks {
-                text += "Tasks:\n" + tasks.map { "\t- \($0.title): \($0.content) [\( $0.isUrgent ? "Urgent" : "")][\($0.isCompleted ? "Completed" : "Incomplete")]" }.joined(separator: "\n")
-            }
-            
-            if let notes = initiative.notes {
-                text += "\nNotes:\n" + notes.map { "\t- \($0.title): \($0.content)" }.joined(separator: "\n")
-            }
-            
-            if let links = initiative.links {
-                text += "\nLinks:\n" + links.map { "\t- \($0.title): \($0.url.absoluteString)" }.joined(separator: "\n")
-            }
-            
-            return text
-        }
-    
     private func addInitiative() {
-        let newInitiative = Initiative(title: title)
-        newInitiative.priority = priority
-        title = ""
-        modelContext.insert(newInitiative)
-        try? modelContext.save()
+        if title.isEmpty {
+            titleBorderColor = .red
+            showAlert = true
+        } else {
+            let newInitiative = Initiative(title: title)
+            newInitiative.priority = priority
+            title = ""
+            modelContext.insert(newInitiative)
+            try? modelContext.save()
+            titleBorderColor = .clear
+        }
     }
 }
 
