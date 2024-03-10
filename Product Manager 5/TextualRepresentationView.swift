@@ -34,11 +34,11 @@ struct TextualRepresentationView: View {
                     }
                 }) {
                     Text("Copy All to Clipboard")
+                        .padding(5)
+                        .background(Color.blue.opacity(0.4))
+                        .foregroundColor(.white)
+                        .cornerRadius(5)
                 }
-                .padding(5)
-                .background(Color.blue.opacity(0.4))
-                .foregroundColor(.white)
-                .cornerRadius(5)
                 .buttonStyle(PlainButtonStyle())
                 
                 if showCopyConfirmation {
@@ -47,13 +47,15 @@ struct TextualRepresentationView: View {
                         .foregroundColor(.green)
                 }
                 
-                Button("Close") {
+                Button(action: {
                     presentationMode.wrappedValue.dismiss()
+                }){
+                    Text("Close")
+                        .padding(5)
+                        .background(Color.blue.opacity(0.4))
+                        .foregroundColor(.white)
+                        .cornerRadius(5)
                 }
-                .padding(5)
-                .background(Color.blue.opacity(0.4))
-                .foregroundColor(.white)
-                .cornerRadius(5)
                 .buttonStyle(PlainButtonStyle())
             }
         }
