@@ -1,5 +1,6 @@
 import SwiftUI
 import SwiftData
+import AppKit
 
 struct ContentView: View {
     @Environment(\.modelContext) private var modelContext
@@ -9,6 +10,8 @@ struct ContentView: View {
     @State private var priority: Priority = .low
     @State private var selectedInitiative: Initiative? = nil
     @State private var showCompleted: Bool = false
+    @State private var showingTextualRepresentation = false
+    @State private var textualRepresentation = ""
     
     var body: some View {
         
@@ -31,6 +34,11 @@ struct ContentView: View {
                                 Text("Highest")
                                     .font(.title)
                                 Spacer()
+                                
+                        
+                        
+
+                                
                                 Toggle(isOn: $showCompleted) {
                                     Text(showCompleted ? "Complete" : "Incomplete")
                                         .font(.subheadline)
@@ -128,6 +136,18 @@ struct ContentView: View {
                         }
                         .pickerStyle(SegmentedPickerStyle())
                         .font(.headline)
+                        
+                        Button("Textual Representation") {
+                            self.textualRepresentation = initiatives.reduce("") { (result, initiative) -> String in
+                                result + generateTextualRepresentation(for: initiative) + "\n\n"
+                            }
+                            self.showingTextualRepresentation = true
+                        }
+                        .padding(5)
+                        .background(Color.blue.opacity(0.4))
+                        .foregroundColor(.white)
+                        .cornerRadius(5)
+                        .buttonStyle(PlainButtonStyle())
                     }
                     
                     Button(action: {
@@ -143,8 +163,31 @@ struct ContentView: View {
                     .buttonStyle(PlainButtonStyle())
                 }
             }
+        } .sheet(isPresented: $showingTextualRepresentation) {
+            TextualRepresentationView(text: $textualRepresentation)
         }
     }
+    
+    private func generateTextualRepresentation(for initiative: Initiative) -> String {
+            var text = "Title: \(initiative.title)\n"
+            text += "Summary: \(initiative.summary)\n"
+            text += "Priority: \(initiative.priority.rawValue)\n"
+            text += "Status: \(initiative.isCompleted ? "Completed" : "Incomplete")\n"
+            
+            if let tasks = initiative.tasks {
+                text += "Tasks:\n" + tasks.map { "\t- \($0.title): \($0.content) [\( $0.isUrgent ? "Urgent" : "")][\($0.isCompleted ? "Completed" : "Incomplete")]" }.joined(separator: "\n")
+            }
+            
+            if let notes = initiative.notes {
+                text += "\nNotes:\n" + notes.map { "\t- \($0.title): \($0.content)" }.joined(separator: "\n")
+            }
+            
+            if let links = initiative.links {
+                text += "\nLinks:\n" + links.map { "\t- \($0.title): \($0.url.absoluteString)" }.joined(separator: "\n")
+            }
+            
+            return text
+        }
     
     private func addInitiative() {
         let newInitiative = Initiative(title: title)
@@ -154,3 +197,6 @@ struct ContentView: View {
         try? modelContext.save()
     }
 }
+
+
+
