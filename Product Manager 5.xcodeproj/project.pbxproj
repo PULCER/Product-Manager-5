@@ -19,6 +19,7 @@
 		43C9C8AD2B96C6AF00D323B1 /* InitiativeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43C9C8AC2B96C6AF00D323B1 /* InitiativeView.swift */; };
 		43C9C8AF2B96C76E00D323B1 /* Utility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43C9C8AE2B96C76E00D323B1 /* Utility.swift */; };
 		43D7181E2B9A662C0098C298 /* LinkView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43D7181D2B9A662C0098C298 /* LinkView.swift */; };
+		43E8AA512B9ECB9F0089CD0B /* DeleteInitiativeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43E8AA502B9ECB9F0089CD0B /* DeleteInitiativeView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -36,6 +37,7 @@
 		43C9C8AC2B96C6AF00D323B1 /* InitiativeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InitiativeView.swift; sourceTree = "<group>"; };
 		43C9C8AE2B96C76E00D323B1 /* Utility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utility.swift; sourceTree = "<group>"; };
 		43D7181D2B9A662C0098C298 /* LinkView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinkView.swift; sourceTree = "<group>"; };
+		43E8AA502B9ECB9F0089CD0B /* DeleteInitiativeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteInitiativeView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -95,6 +97,7 @@
 				437BD1EF2B97EF4D00F7F7CB /* TaskView.swift */,
 				43227B0C2B9AB4210065E81C /* NoteView.swift */,
 				43D7181D2B9A662C0098C298 /* LinkView.swift */,
+				43E8AA502B9ECB9F0089CD0B /* DeleteInitiativeView.swift */,
 			);
 			path = TaskNoteLinkViews;
 			sourceTree = "<group>";
@@ -181,6 +184,7 @@
 			files = (
 				431CE2752B96574D0002D1A1 /* ContentView.swift in Sources */,
 				436B264B2B9E2397000CED45 /* TextualRepresentationView.swift in Sources */,
+				43E8AA512B9ECB9F0089CD0B /* DeleteInitiativeView.swift in Sources */,
 				437BD1F02B97EF4D00F7F7CB /* TaskView.swift in Sources */,
 				43D7181E2B9A662C0098C298 /* LinkView.swift in Sources */,
 				431CE2842B9657980002D1A1 /* InitiativeDetailView.swift in Sources */,
@@ -323,7 +327,7 @@
 				CODE_SIGN_ENTITLEMENTS = "Product Manager 5/Product_Manager_5.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 10;
+				CURRENT_PROJECT_VERSION = 11;
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_ASSET_PATHS = "\"Product Manager 5/Preview Content\"";
 				DEVELOPMENT_TEAM = 5BB8VQ988Q;
@@ -338,7 +342,7 @@
 					"@executable_path/../Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 14.0;
-				MARKETING_VERSION = 1.05;
+				MARKETING_VERSION = 1.06;
 				PRODUCT_BUNDLE_IDENTIFIER = "pulcer.net.Product-Manager-5";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = macosx;
@@ -356,7 +360,7 @@
 				CODE_SIGN_ENTITLEMENTS = "Product Manager 5/Product_Manager_5.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 10;
+				CURRENT_PROJECT_VERSION = 11;
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_ASSET_PATHS = "\"Product Manager 5/Preview Content\"";
 				DEVELOPMENT_TEAM = 5BB8VQ988Q;
@@ -371,7 +375,7 @@
 					"@executable_path/../Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 14.0;
-				MARKETING_VERSION = 1.05;
+				MARKETING_VERSION = 1.06;
 				PRODUCT_BUNDLE_IDENTIFIER = "pulcer.net.Product-Manager-5";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = macosx;

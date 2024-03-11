@@ -5,7 +5,7 @@ struct InitiativeDetailView: View {
     @Environment(\.modelContext) private var modelContext
     var initiative: Initiative
     @Binding var selectedInitiative: Initiative?
-    @State private var showingDeleteConfirmation = false
+    @State private var showingDeleteSheet = false
     @State private var editedTitle: String
     @State private var editedSummary: String
     @State private var selectedPriority: Priority
@@ -170,7 +170,7 @@ struct InitiativeDetailView: View {
                 .buttonStyle(PlainButtonStyle())
                 
                 Button(action: {
-                    showingDeleteConfirmation = true
+                    showingDeleteSheet = true
                 }) {
                     Text("Delete")
                         .frame(maxWidth: .infinity)
@@ -216,15 +216,8 @@ struct InitiativeDetailView: View {
         .sheet(item: $selectedLink) { link in
             LinkView(initiative: initiative, link: link)
         }
-        .alert(isPresented: $showingDeleteConfirmation) {
-            Alert(
-                title: Text("Confirm Deletion"),
-                message: Text("Are you sure you want to delete this initiative?"),
-                primaryButton: .destructive(Text("Delete")) {
-                    deleteInitiative()
-                },
-                secondaryButton: .cancel()
-            )
+        .sheet(isPresented: $showingDeleteSheet) {
+            DeleteConfirmationView(initiative: initiative, isPresented: $showingDeleteSheet, selectedInitiative: $selectedInitiative)
         }
     }
     
