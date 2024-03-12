@@ -14,6 +14,7 @@ struct ContentView: View {
     @State private var textualRepresentation = ""
     @State private var showAlert = false
     @State private var titleBorderColor: Color = .clear
+    @State private var shrinkInitiatives = false
     
     var body: some View {
         
@@ -38,6 +39,13 @@ struct ContentView: View {
                                     .font(.title)
                                 Spacer()
                                 
+                                Button(action: {
+                                    shrinkInitiatives.toggle()
+                                }) {
+                                    Image(systemName: shrinkInitiatives ? "square.grid.2x2" : "rectangle.grid.1x2")
+                                        .foregroundColor(.blue)
+                                }
+                                
                                 Toggle(isOn: $showCompleted) {
                                     Text(showCompleted ? "Complete" : "Incomplete")
                                         .font(.subheadline)
@@ -45,13 +53,15 @@ struct ContentView: View {
                                 }
                                 .toggleStyle(SwitchToggleStyle(tint: .blue))
                             }
+                            
+                            
                             ScrollView(.horizontal) {
                                 HStack {
                                     ForEach(highestPriorityInitiatives) { initiative in
                                         Button(action: {
                                             self.selectedInitiative = initiative
                                         }) {
-                                            InitiativeView(initiative: initiative)
+                                            InitiativeView(initiative: initiative, shrinkInitiatives: shrinkInitiatives)
                                         }
                                         .buttonStyle(PlainButtonStyle())
                                     }
@@ -71,7 +81,7 @@ struct ContentView: View {
                                         Button(action: {
                                             self.selectedInitiative = initiative
                                         }) {
-                                            InitiativeView(initiative: initiative)
+                                            InitiativeView(initiative: initiative, shrinkInitiatives: shrinkInitiatives)
                                         }
                                         .buttonStyle(PlainButtonStyle())
                                     }
@@ -91,7 +101,7 @@ struct ContentView: View {
                                         Button(action: {
                                             self.selectedInitiative = initiative
                                         }) {
-                                            InitiativeView(initiative: initiative)
+                                            InitiativeView(initiative: initiative, shrinkInitiatives: shrinkInitiatives)
                                         }
                                         .buttonStyle(PlainButtonStyle())
                                     }
@@ -111,7 +121,7 @@ struct ContentView: View {
                                         Button(action: {
                                             self.selectedInitiative = initiative
                                         }) {
-                                            InitiativeView(initiative: initiative)
+                                            InitiativeView(initiative: initiative, shrinkInitiatives: shrinkInitiatives)
                                         }
                                         .buttonStyle(PlainButtonStyle())
                                     }
