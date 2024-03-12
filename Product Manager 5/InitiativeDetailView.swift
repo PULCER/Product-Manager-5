@@ -16,6 +16,7 @@ struct InitiativeDetailView: View {
     @State private var selectedTask: InitiativeTask?
     @State private var showingAddLinkModal = false
     @State private var selectedLink: InitiativeLink?
+    @State private var summaryFontSize: CGFloat = 16
     
     init(initiative: Initiative, selectedInitiative: Binding<Initiative?>) {
         self.initiative = initiative
@@ -33,6 +34,22 @@ struct InitiativeDetailView: View {
                     .font(.headline)
                     .textFieldStyle(RoundedBorderTextFieldStyle())
                 
+                HStack {
+                    Button(action: {
+                        summaryFontSize += 1
+                        saveSummaryFontSize()
+                    }) {
+                        Image(systemName: "plus")
+                    }
+                    
+                    Button(action: {
+                        summaryFontSize -= 1
+                        saveSummaryFontSize()
+                    }) {
+                        Image(systemName: "minus")
+                    }
+                }
+                
                 Toggle(isOn: $isCompleted) {
                     Text(isCompleted ? "Complete" : "Incomplete")
                         .font(.subheadline)
@@ -42,9 +59,10 @@ struct InitiativeDetailView: View {
             }
             
             TextEditor(text: $editedSummary)
-                .frame(minHeight: CGFloat(5 * 20))
-                .overlay(RoundedRectangle(cornerRadius: 5).stroke(Color.gray, lineWidth: 1))
-                .padding(.bottom)
+                                .font(.system(size: summaryFontSize))
+                                .frame(minHeight: CGFloat(5 * 20))
+                                .overlay(RoundedRectangle(cornerRadius: 5).stroke(Color.gray, lineWidth: 1))
+                                .padding(.bottom)
             
             
             if let tasks = initiative.tasks, !tasks.isEmpty {
@@ -128,7 +146,7 @@ struct InitiativeDetailView: View {
                 Text("Highest").tag(Priority.highest)
             }
             .pickerStyle(SegmentedPickerStyle())
-                        
+            
             HStack {
                 Button(action: {
                     showingAddTaskModal = true
@@ -198,6 +216,9 @@ struct InitiativeDetailView: View {
                 .buttonStyle(PlainButtonStyle())
             }
         }
+        .onAppear{
+            loadSummaryFontSize()
+        }
         .sheet(isPresented: $showingAddTaskModal) {
             TaskView(initiative: initiative)
         }
@@ -232,6 +253,17 @@ struct InitiativeDetailView: View {
         modelContext.delete(initiative)
         try? modelContext.save()
         self.selectedInitiative = nil
+    }
+    
+    private func saveSummaryFontSize() {
+        UserDefaults.standard.set(summaryFontSize, forKey: "summaryFontSize")
+    }
+    
+    private func loadSummaryFontSize() {
+        summaryFontSize = UserDefaults.standard.double(forKey: "summaryFontSize")
+        if summaryFontSize == 0 {
+            summaryFontSize = 16
+        }
     }
 }
 
