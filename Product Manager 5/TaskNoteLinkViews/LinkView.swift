@@ -46,12 +46,12 @@ struct LinkView: View {
                     .buttonStyle(PlainButtonStyle())
                     
                     Button(action: {
-                        if let url = URL(string: linkURL) {
-                            let newLink = InitiativeLink(title: linkTitle, url: url)
-                            initiative.links?.append(newLink)
-                            try? modelContext.save()
-                        }
-                        dismiss()
+                        if let link = link, let url = URL(string: linkURL) {
+                                link.title = linkTitle
+                                link.url = url
+                                try? modelContext.save()
+                            }
+                            dismiss()
                     }) {
                         Text("Back")
                             .font(.title2)
